@@ -19,7 +19,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter basename="/Gilevo&Co/">
+      <BrowserRouter basename="/Gilevo-Co/">
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Index />} />
