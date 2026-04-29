@@ -25,7 +25,7 @@ export const Hero = () => {
       <HeroLineArt />
 
       {/* 3D Armillary sphere */}
-      <div className="hidden min-[1250px]:block absolute top-2/3 right-[0vw] -translate-y-[50%] w-[40vw] max-w-[580px] min-w-[340px] h-[62vh] max-h-[640px] min-h-[380px] z-0 pointer-events-auto opacity-100">
+      <div className="hidden min-[1250px]:block absolute top-2/3 right-[0vw] -translate-y-[50%] w-[40vw] max-w-[580px] min-w-[340px] h-[62vh] max-h-[640px] min-h-[380px] z-0 pointer-events-auto opacity-90">
         <Suspense fallback={null}>
           <Armillary />
         </Suspense>

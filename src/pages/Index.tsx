@@ -158,7 +158,7 @@ const PreviewAbout = () => {
   return (
     <div ref={ref} className="relative min-h-[100svh] py-24 lg:py-32 overflow-hidden border-t border-hairline bg-background">
       {/* G&C particle field — dispersed top-right, converges to wordmark on scroll-in */}
-      <div className="hidden md:block absolute top-0 right-0 w-[62vw] max-w-[900px] h-[78vh] max-h-[820px] pointer-events-none z-[1]">
+      <div className="hidden md:block absolute bottom-1/3 right-0 w-[62vw] max-w-[900px] h-[78vh] max-h-[820px] pointer-events-none z-[1]">
         <Suspense fallback={null}>
           <LogoParticles />
         </Suspense>
