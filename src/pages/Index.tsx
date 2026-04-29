@@ -22,7 +22,7 @@ const Index = () => {
       <div className="relative">
         <StackSection index={0}><Hero /></StackSection>
         <StackSection index={1}><PreviewWork /></StackSection>
-        <StackSection index={2} className="min-h-[150svh]"><PreviewServices /></StackSection>
+        <StackSection index={2} className="min-h-[220svh]"><PreviewServices /></StackSection>
         <StackSection index={3}><PreviewAbout /></StackSection>
         <StackSection index={4} last><CTABand /></StackSection>
       </div>
