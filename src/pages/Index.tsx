@@ -22,6 +22,7 @@ const Index = () => {
       <div className="relative">
         <StackSection index={0}><Hero /></StackSection>
         <StackSection index={1}><PreviewWork /></StackSection>
+        
         <StackSection index={2} className="min-h-[220svh] lg:min-h-[150svh]"><PreviewServices /></StackSection>
         <StackSection index={3}><PreviewAbout /></StackSection>
         <StackSection index={4} last><CTABand /></StackSection>
@@ -101,11 +102,12 @@ const HOME_SERVICES = [
 const PreviewServices = () => {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <div className="relative min-h-[100svh] py-24 lg:py-32 bg-paper border-t border-hairline">
+
+    <div className="relative h-[100svh] overflow-y-auto bg-paper border-t border-hairline">
       <LineArt variant="grid" />
-      <div className="relative mx-auto max-w-[1440px] px-6 lg:px-10">
+      <div className="relative mx-auto max-w-[1440px] px-6 lg:px-10 py-24 lg:py-32">
         <p className="mono text-brand-blue mb-6">/ 02 — Services</p>
-        <h2 className="display-sans text-5xl lg:text-7xl tracking-tighter leading-[0.95] text-blue-deep max-w-3xl">
+        <h2 className="display-sans text-4xl md:text-5xl lg:text-7xl tracking-tighter leading-[0.95] text-blue-deep max-w-3xl">
           Six disciplines, <span className="display-serif text-brand-blue">one studio.</span>
         </h2>
         <ul className="mt-16 border-t border-hairline">
@@ -115,11 +117,11 @@ const PreviewServices = () => {
               <li key={s.n} className="border-b border-hairline">
                 <button
                   onClick={() => setOpen(isOpen ? null : i)}
-                  className="group flex items-baseline justify-between w-full py-6 text-left transition-all"
+                  className="group flex items-baseline justify-between w-full py-4 lg:py-6 text-left transition-all"
                 >
                   <span className="flex items-baseline gap-6">
                     <span className="mono text-faint">{s.n}</span>
-                    <span className={`display-sans text-3xl lg:text-5xl tracking-tight transition-colors ${isOpen ? "text-brand-blue-deep" : "text-ink group-hover:text-brand-blue"}`}>
+                    <span className={`display-sans text-2xl md:text-3xl lg:text-5xl tracking-tight transition-colors ${isOpen ? "text-brand-blue-deep" : "text-ink group-hover:text-brand-blue"}`}>
                       {s.name}
                     </span>
                   </span>
@@ -157,8 +159,8 @@ const PreviewAbout = () => {
 
   return (
     <div ref={ref} className="relative min-h-[100svh] py-24 lg:py-32 overflow-hidden border-t border-hairline bg-background">
-      {/* G&C particle field — dispersed top-right, converges to wordmark on scroll-in */}
-      <div className="hidden md:block absolute bottom-1/3 right-0 w-[62vw] max-w-[900px] h-[78vh] max-h-[820px] pointer-events-none z-[1]">
+
+      <div className="hidden lg:block absolute bottom-1/3 right-0 w-[62vw] max-w-[900px] h-[78vh] max-h-[820px] pointer-events-none z-[1]">
         <Suspense fallback={null}>
           <LogoParticles />
         </Suspense>
@@ -294,4 +296,3 @@ const CTABand = () => (
 );
 
 export default Index;
-

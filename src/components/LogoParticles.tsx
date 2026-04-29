@@ -1,19 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import gcGlyph from "@/assets/gc-glyph-silhouette.png";
 
-/**
- * LogoParticles — 2D canvas particle field. Particles are dispersed across
- * the top-right area when the section is off-screen, and converge into the
- * G&C wordmark silhouette as the section enters the viewport. Scrolling
- * past disperses them again. No cursor interactivity.
- */
-
 interface Particle {
   x: number;
   y: number;
-  tx: number; // assembled target (in glyph)
+  tx: number;
   ty: number;
-  dx: number; // dispersed target
+  dx: number;
   dy: number;
   vx: number;
   vy: number;
@@ -25,7 +18,7 @@ interface Particle {
 export const LogoParticles = ({ className = "" }: { className?: string }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
-  const progressRef = useRef(0); // 0 = dispersed, 1 = assembled
+  const progressRef = useRef(0);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -40,6 +33,10 @@ export const LogoParticles = ({ className = "" }: { className?: string }) => {
     const sample = (img: HTMLImageElement) => {
       const w = wrap.clientWidth;
       const h = wrap.clientHeight;
+
+      // ✅ FIX: guard against zero dimensions (element hidden / not yet laid out)
+      if (w === 0 || h === 0) return;
+
       canvas.width = w * dpr;
       canvas.height = h * dpr;
       canvas.style.width = `${w}px`;
@@ -53,7 +50,6 @@ export const LogoParticles = ({ className = "" }: { className?: string }) => {
       off.width = w;
       off.height = h;
       const octx = off.getContext("2d", { willReadFrequently: true })!;
-      // Larger fit factor — bigger wordmark
       const ratio = Math.min(w / img.width, h / img.height) * 1.05;
       const dw = img.width * ratio;
       const dh = img.height * ratio;
@@ -92,7 +88,7 @@ export const LogoParticles = ({ className = "" }: { className?: string }) => {
         tx: t.x,
         ty: t.y,
         dx: Math.random() * w,
-        dy: Math.random() * h * 0.7, // dispersed across top portion
+        dy: Math.random() * h * 0.7,
         vx: 0,
         vy: 0,
         size: 1.2 + Math.random() * 1.4,
@@ -105,13 +101,11 @@ export const LogoParticles = ({ className = "" }: { className?: string }) => {
         ctx.clearRect(0, 0, w, h);
         const time = performance.now() * 0.001;
         const p01 = progressRef.current;
-        // Smooth ease
         const e = p01 < 0.5 ? 2 * p01 * p01 : 1 - Math.pow(-2 * p01 + 2, 2) / 2;
 
         for (const p of particles) {
           const driftX = Math.sin(time * 0.6 + p.hue) * (1.2 - e);
           const driftY = Math.cos(time * 0.5 + p.hue * 1.3) * (1.2 - e);
-          // Blend between dispersed and assembled targets
           const targetX = p.dx * (1 - e) + p.tx * e + driftX;
           const targetY = p.dy * (1 - e) + p.ty * e + driftY;
           const ax = (targetX - p.x) * 0.05;
@@ -145,15 +139,11 @@ export const LogoParticles = ({ className = "" }: { className?: string }) => {
     };
     window.addEventListener("resize", onResize);
 
-    // Scroll-driven progress: 0 dispersed -> 1 assembled around middle of viewport,
-    // back to 0 as section scrolls out.
     const onScroll = () => {
       const r = wrap.getBoundingClientRect();
       const vh = window.innerHeight || 1;
-      // Center of element relative to viewport center, normalized
       const center = r.top + r.height / 2;
-      const fromCenter = (center - vh / 2) / vh; // ~ -1..1 across viewport
-      // Assembled when |fromCenter| small. Map |fromCenter|<=0.35 -> full
+      const fromCenter = (center - vh / 2) / vh;
       const dist = Math.min(1, Math.abs(fromCenter) / 0.55);
       progressRef.current = 1 - dist;
     };
