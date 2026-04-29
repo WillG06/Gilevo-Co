@@ -274,8 +274,9 @@ const CTABand = () => (
 
     <div className="relative text-center px-6 max-w-4xl">
       <p className="mono text-brand-gold mb-6">/ Let's begin</p>
-      <h2 className="display-sans text-6xl lg:text-9xl tracking-tighter leading-[0.92]">
-        Build something<br /><span className="display-serif text-brand-gold">remarkable.</span>
+      <h2 className="display-sans text-5xl lg:text-8xl tracking-tighter leading-[0.92]">
+        Designed to perform.<br />
+        <span className="display-serif text-brand-gold">Built to last.</span>
       </h2>
       <p className="mt-8 text-background/70 text-lg max-w-xl mx-auto leading-relaxed">
         Available for freelance projects, collaborations, and template licensing.
