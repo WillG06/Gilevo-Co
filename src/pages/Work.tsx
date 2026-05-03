@@ -110,14 +110,15 @@ const Lightbox = ({ src, label, onClose }: { src: string; label: string; onClose
     <AnimatePresence>
       <motion.div
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4 lg:p-10"
+        transition={{ duration: 0.18 }}
+        className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4 lg:p-10"
         onClick={onClose}
       >
         <motion.div
-          initial={{ scale: 0.96, opacity: 0, y: 14 }}
+          initial={{ scale: 0.97, opacity: 0, y: 10 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
-          exit={{ scale: 0.96, opacity: 0, y: 14 }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
+          exit={{ scale: 0.97, opacity: 0, y: 10 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
           className="relative w-full max-w-4xl flex flex-col rounded-2xl overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.6)] ring-1 ring-white/10"
           style={{ maxHeight: "90vh" }}
           onClick={(e) => e.stopPropagation()}
@@ -146,42 +147,49 @@ const Lightbox = ({ src, label, onClose }: { src: string; label: string; onClose
   );
 };
 
-/* ─── Shared scroll preview internals (used by both mobile card & desktop big preview) ── */
+/* ─── Shared scroll preview hook ──────────────────────────────────────── */
 const useScrollPreview = (activeIndex: number) => {
   const trackRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
   const scrollPos = useRef(0);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  const stopInterval = useCallback(() => {
-    if (intervalRef.current) { clearInterval(intervalRef.current); intervalRef.current = null; }
+  const stopRaf = useCallback(() => {
+    if (rafRef.current) { cancelAnimationFrame(rafRef.current); rafRef.current = null; }
   }, []);
 
   const reset = useCallback(() => {
-    stopInterval();
+    stopRaf();
     setPlaying(false);
     setProgress(0);
     scrollPos.current = 0;
     if (trackRef.current) trackRef.current.scrollTop = 0;
-  }, [stopInterval]);
+  }, [stopRaf]);
 
   useEffect(() => { reset(); }, [activeIndex, reset]);
 
   useEffect(() => {
-    if (!playing) { stopInterval(); return; }
-    intervalRef.current = setInterval(() => {
+    if (!playing) { stopRaf(); return; }
+
+    let last = 0;
+    const step = (ts: number) => {
+      if (!trackRef.current) return;
+      // throttle to ~30fps for performance
+      if (ts - last < 32) { rafRef.current = requestAnimationFrame(step); return; }
+      last = ts;
       const el = trackRef.current;
-      if (!el) return;
       const max = el.scrollHeight - el.clientHeight;
       if (max <= 0) { reset(); return; }
-      scrollPos.current = Math.min(scrollPos.current + 1.4, max);
+      scrollPos.current = Math.min(scrollPos.current + 2.2, max);
       el.scrollTop = scrollPos.current;
       setProgress(scrollPos.current / max);
-      if (scrollPos.current >= max) { stopInterval(); setPlaying(false); }
-    }, 16);
-    return stopInterval;
-  }, [playing, stopInterval, reset]);
+      if (scrollPos.current >= max) { stopRaf(); setPlaying(false); return; }
+      rafRef.current = requestAnimationFrame(step);
+    };
+    rafRef.current = requestAnimationFrame(step);
+    return stopRaf;
+  }, [playing, stopRaf, reset]);
 
   useEffect(() => {
     const h = () => { if (document.hidden) setPlaying(false); };
@@ -192,7 +200,7 @@ const useScrollPreview = (activeIndex: number) => {
   return { trackRef, playing, setPlaying, progress, reset };
 };
 
-/* ─── Desktop: big sticky scroll preview ──────────────────────────────── */
+/* ─── Desktop: full-width scroll preview ──────────────────────────────── */
 const DesktopPreview = ({
   project, activeIndex, onPrev, onNext, onPickIndex,
 }: {
@@ -204,7 +212,7 @@ const DesktopPreview = ({
 
   return (
     <div className="rounded-2xl overflow-hidden ring-1 ring-hairline bg-background shadow-[0_30px_80px_-20px_hsl(var(--brand-blue-deep)/0.35)]">
-      {/* Chrome */}
+      {/* Chrome bar */}
       <div className="flex items-center gap-2 px-4 py-2.5 border-b border-hairline bg-paper">
         <div className="flex gap-1.5 shrink-0">
           <span className="h-2.5 w-2.5 rounded-full bg-brand-blue-soft" />
@@ -241,20 +249,31 @@ const DesktopPreview = ({
 
       {/* Viewport */}
       <div className="relative">
-        <div ref={trackRef} className="h-[560px] lg:h-[680px] overflow-hidden" style={{ scrollBehavior: "auto" }}>
-          <img key={`${project.id}-${activeIndex}`} src={frame.src}
+        {/* GPU layer hint on scroll container */}
+        <div
+          ref={trackRef}
+          className="h-[560px] lg:h-[680px] overflow-hidden"
+          style={{ scrollBehavior: "auto", transform: "translateZ(0)" }}
+        >
+          <img
+            key={`${project.id}-${activeIndex}`}
+            src={frame.src}
             alt={`${project.name} — ${frame.label}`}
-            className="w-full block select-none" draggable={false} loading="lazy" />
+            className="w-full block select-none"
+            draggable={false}
+            loading="lazy"
+          />
         </div>
 
+        {/* Play overlay — no backdrop-blur for perf */}
         {!playing && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-brand-blue-deep/15 backdrop-blur-[1px]">
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-brand-blue-deep/20">
             <button onClick={() => setPlaying(true)} aria-label="Play scroll preview"
               className="group flex flex-col items-center gap-3">
               <span className="h-16 w-16 rounded-full bg-background/95 shadow-lg grid place-items-center group-hover:scale-110 group-hover:bg-brand-blue-deep group-hover:text-background text-brand-blue-deep transition-all duration-200">
                 <Play className="h-6 w-6 translate-x-0.5" />
               </span>
-              <span className="mono text-[0.65rem] text-background bg-brand-blue-deep/80 backdrop-blur rounded-full px-3 py-1">
+              <span className="mono text-[0.65rem] text-background bg-brand-blue-deep/90 rounded-full px-3 py-1">
                 Preview scroll
               </span>
             </button>
@@ -262,11 +281,11 @@ const DesktopPreview = ({
         )}
 
         <button onClick={onPrev} aria-label="Previous page"
-          className="absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 grid place-items-center rounded-full bg-background/80 backdrop-blur border border-hairline hover:border-brand-blue hover:text-brand-blue-deep text-ink/60 transition-all shadow-md">
+          className="absolute left-3 top-1/2 -translate-y-1/2 h-10 w-10 grid place-items-center rounded-full bg-background/85 border border-hairline hover:border-brand-blue hover:text-brand-blue-deep text-ink/60 transition-all shadow-md">
           <ChevronLeft className="h-5 w-5" />
         </button>
         <button onClick={onNext} aria-label="Next page"
-          className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 grid place-items-center rounded-full bg-background/80 backdrop-blur border border-hairline hover:border-brand-blue hover:text-brand-blue-deep text-ink/60 transition-all shadow-md">
+          className="absolute right-3 top-1/2 -translate-y-1/2 h-10 w-10 grid place-items-center rounded-full bg-background/85 border border-hairline hover:border-brand-blue hover:text-brand-blue-deep text-ink/60 transition-all shadow-md">
           <ChevronRight className="h-5 w-5" />
         </button>
 
@@ -274,12 +293,13 @@ const DesktopPreview = ({
           {project.frames.map((_, i) => (
             <button key={i} onClick={() => onPickIndex(i)}
               className={`rounded-full transition-all ${
-                i === activeIndex ? "h-2 w-5 bg-brand-blue-deep" : "h-2 w-2 bg-background/60 border border-hairline hover:bg-brand-blue/40"
+                i === activeIndex ? "h-2 w-5 bg-brand-blue-deep" : "h-2 w-2 bg-background/70 border border-hairline hover:bg-brand-blue/40"
               }`} />
           ))}
         </div>
       </div>
 
+      {/* Progress bar */}
       <div className="h-0.5 bg-hairline">
         <div className="h-full bg-brand-gold" style={{ width: `${progress * 100}%`, transition: "width 0.1s linear" }} />
       </div>
@@ -287,7 +307,7 @@ const DesktopPreview = ({
   );
 };
 
-/* ─── Mobile: compact card that acts as scroll preview (same size as thumbs) ── */
+/* ─── Mobile: compact scroll preview card ─────────────────────────────── */
 const MobilePreviewCard = ({ project }: { project: Project }) => {
   const { trackRef, playing, setPlaying, progress, reset } = useScrollPreview(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -295,8 +315,7 @@ const MobilePreviewCard = ({ project }: { project: Project }) => {
 
   return (
     <>
-      <div className="rounded-xl overflow-hidden border border-hairline ring-0 bg-background">
-        {/* Mini chrome bar */}
+      <div className="rounded-xl overflow-hidden border border-hairline bg-background">
         <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-paper border-b border-hairline">
           <div className="flex gap-1">
             <span className="h-2 w-2 rounded-full bg-brand-blue-soft" />
@@ -316,40 +335,35 @@ const MobilePreviewCard = ({ project }: { project: Project }) => {
           </button>
         </div>
 
-        {/* Image viewport — same aspect ratio as sibling thumbs */}
         <div className="relative aspect-[3/4] overflow-hidden bg-paper">
-          <div ref={trackRef} className="absolute inset-0 overflow-hidden" style={{ scrollBehavior: "auto" }}>
+          <div ref={trackRef} className="absolute inset-0 overflow-hidden" style={{ scrollBehavior: "auto", transform: "translateZ(0)" }}>
             <img src={frame.src} alt={`${project.name} — home`}
               className="w-full block select-none" draggable={false} loading="lazy" />
           </div>
 
-          {/* Play overlay */}
           {!playing && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-brand-blue-deep/15 backdrop-blur-[1px]">
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-brand-blue-deep/20">
               <button onClick={() => setPlaying(true)} aria-label="Play scroll preview"
                 className="group flex flex-col items-center gap-2">
                 <span className="h-11 w-11 rounded-full bg-background/95 shadow-lg grid place-items-center group-hover:scale-110 group-hover:bg-brand-blue-deep group-hover:text-background text-brand-blue-deep transition-all duration-200">
                   <Play className="h-4 w-4 translate-x-0.5" />
                 </span>
-                <span className="mono text-[0.55rem] text-background bg-brand-blue-deep/80 backdrop-blur rounded-full px-2.5 py-0.5">
+                <span className="mono text-[0.55rem] text-background bg-brand-blue-deep/90 rounded-full px-2.5 py-0.5">
                   Preview scroll
                 </span>
               </button>
             </div>
           )}
 
-          {/* Label badge */}
-          <span className="absolute top-2 left-2 mono text-[0.5rem] bg-brand-blue-deep/80 backdrop-blur text-background rounded-full px-2 py-0.5">
+          <span className="absolute top-2 left-2 mono text-[0.5rem] bg-brand-blue-deep/80 text-background rounded-full px-2 py-0.5">
             /home
           </span>
         </div>
 
-        {/* Progress bar */}
         <div className="h-0.5 bg-hairline">
           <div className="h-full bg-brand-gold" style={{ width: `${progress * 100}%`, transition: "width 0.1s linear" }} />
         </div>
 
-        {/* Footer */}
         <div className="px-3 py-2 flex items-center justify-between bg-background">
           <p className="display-sans text-sm text-blue-deep capitalize">Home</p>
           <button onClick={() => setLightboxOpen(true)} aria-label="View full page"
@@ -379,11 +393,11 @@ const StaticThumb = ({ frame, projectName }: { frame: Frame; projectName: string
             className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500"
             loading="lazy" />
           <div className="absolute inset-0 bg-brand-blue-deep/0 group-hover:bg-brand-blue-deep/20 transition-colors duration-300 flex items-center justify-center">
-            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-background/90 backdrop-blur rounded-full px-3 py-1.5 mono text-[0.6rem] text-brand-blue-deep flex items-center gap-1">
+            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-background/90 rounded-full px-3 py-1.5 mono text-[0.6rem] text-brand-blue-deep flex items-center gap-1">
               View full page <ArrowUpRight className="h-3 w-3" />
             </span>
           </div>
-          <span className="absolute top-2 left-2 mono text-[0.5rem] bg-brand-blue-deep/80 backdrop-blur text-background rounded-full px-2 py-0.5">
+          <span className="absolute top-2 left-2 mono text-[0.5rem] bg-brand-blue-deep/80 text-background rounded-full px-2 py-0.5">
             /{frame.label}
           </span>
         </div>
@@ -403,17 +417,15 @@ const ProjectGallery = ({ project, index }: { project: Project; index: number })
   const prev = () => setActiveIndex((i) => (i - 1 + project.frames.length) % project.frames.length);
   const next = () => setActiveIndex((i) => (i + 1) % project.frames.length);
 
-  // All frames except home for desktop thumbnail sidebar
+  // All frames except home for thumbnail rows
   const thumbFrames = project.frames.filter((f) => f.label !== "home");
-  // All frames except home for mobile grid (home is handled by MobilePreviewCard)
-  const mobileThumbFrames = project.frames.filter((f) => f.label !== "home");
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.08 }}
-      transition={{ duration: 0.55, delay: index * 0.04 }}
+      viewport={{ once: true, amount: 0.06 }}
+      transition={{ duration: 0.45, delay: index * 0.03 }}
     >
       {/* Header */}
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
@@ -437,35 +449,26 @@ const ProjectGallery = ({ project, index }: { project: Project; index: number })
         </div>
       </div>
 
-      {/*
-        MOBILE  (< lg): 2×2 grid — top-left is the scroll preview card, rest are static thumbs
-        DESKTOP (≥ lg): sticky big preview left, thumbnail column right
-      */}
-
       {/* ── Mobile 2×2 grid ── */}
       <div className="lg:hidden grid grid-cols-2 gap-3">
-        {/* Top-left: scroll preview card */}
         <MobilePreviewCard project={project} />
-        {/* Remaining 3 frames as static thumbs — fills top-right, bottom-left, bottom-right */}
-        {mobileThumbFrames.map((f, i) => (
+        {thumbFrames.map((f, i) => (
           <StaticThumb key={`mob-${project.id}-${f.label}-${i}`} frame={f} projectName={project.name} />
         ))}
       </div>
 
-      {/* ── Desktop sticky layout ── */}
-      <div className="hidden lg:grid lg:grid-cols-[1fr_320px] xl:grid-cols-[1fr_380px] gap-6">
-        {/* Sticky big preview */}
-        <div className="lg:sticky lg:top-8 lg:self-start">
-          <DesktopPreview
-            project={project}
-            activeIndex={activeIndex}
-            onPrev={prev}
-            onNext={next}
-            onPickIndex={setActiveIndex}
-          />
-        </div>
-        {/* Thumbnail sidebar */}
-        <div className="grid grid-cols-1 gap-4">
+      {/* ── Desktop: large preview + 3 thumbs below ── */}
+      <div className="hidden lg:block space-y-5">
+        {/* Full-width large preview */}
+        <DesktopPreview
+          project={project}
+          activeIndex={activeIndex}
+          onPrev={prev}
+          onNext={next}
+          onPickIndex={setActiveIndex}
+        />
+        {/* 3 thumbnails in a row below */}
+        <div className="grid grid-cols-3 gap-5">
           {thumbFrames.map((f, i) => (
             <StaticThumb key={`desk-${project.id}-${f.label}-${i}`} frame={f} projectName={project.name} />
           ))}
@@ -518,7 +521,7 @@ const BespokeBlock = () => (
           ["<1.5s", "First paint average"],
         ].map(([k, v]) => (
           <div key={k}
-            className="rounded-xl border border-hairline bg-background/80 backdrop-blur-sm p-5 hover:border-brand-blue/40 transition-colors">
+            className="rounded-xl border border-hairline bg-background/80 p-5 hover:border-brand-blue/40 transition-colors">
             <p className="display-sans text-2xl lg:text-3xl tracking-tighter text-brand-blue-deep">{k}</p>
             <p className="mono text-faint mt-2 text-[0.6rem]">{v}</p>
           </div>
