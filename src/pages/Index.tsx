@@ -107,7 +107,7 @@ const PreviewServices = () => {
       <div className="relative mx-auto max-w-[1440px] px-6 lg:px-10 py-24 lg:py-32">
         <p className="mono text-brand-blue mb-6">/ 02 — Services</p>
         <h2 className="display-sans text-4xl md:text-5xl lg:text-7xl tracking-tighter leading-[0.95] text-blue-deep max-w-3xl">
-          Six disciplines, <span className="display-serif text-brand-blue">one studio.</span>
+          Five disciplines, <span className="display-serif text-brand-blue">one studio.</span>
         </h2>
         <ul className="mt-16 border-t border-hairline">
           {HOME_SERVICES.map((s, i) => {
