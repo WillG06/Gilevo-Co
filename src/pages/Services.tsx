@@ -6,10 +6,9 @@ import { LineArt } from "@/components/LineArt";
 const services = [
   { n: "01", name: "Web Design", desc: "Bespoke design systems, art-directed pages, considered motion.", bullets: ["Brand-led design systems", "Art-directed landing pages", "Wireframes & high-fidelity mockups", "Motion principles & prototypes"] },
   { n: "02", name: "Web Development", desc: "Hand-built React, Next.js, and Webflow with obsessive performance.", bullets: ["React, Next.js & Astro stacks", "Webflow & Framer development", "100/100 Lighthouse targets", "Headless CMS integration"] },
-  { n: "03", name: "Template Design", desc: "Production-ready, licensable templates for studios and founders.", bullets: ["Multi-page Webflow & Framer templates", "Editable CMS structures", "Lifetime license", "Free updates"] },
-  { n: "04", name: "Brand & Identity", desc: "Logos, marks, and digital-first brand systems built to scale.", bullets: ["Logo & wordmark", "Type & colour systems", "Brand guidelines PDF", "Social & business collateral"] },
-  { n: "05", name: "E-commerce", desc: "Shopify and headless commerce that converts on the first visit.", bullets: ["Shopify 2.0 themes", "Stripe checkout flows", "Subscription & memberships", "Conversion-optimised PDPs"] },
-  { n: "06", name: "SEO & Performance", desc: "Technical foundations and measurable growth from launch day one.", bullets: ["Core Web Vitals tuning", "Schema & sitemap", "Content strategy", "Search Console reporting"] },
+  { n: "03", name: "Brand & Identity", desc: "Logos, marks, and digital-first brand systems built to scale.", bullets: ["Logo & wordmark", "Type & colour systems", "Brand guidelines PDF", "Social & business collateral"] },
+  { n: "04", name: "E-commerce", desc: "Shopify and headless commerce that converts on the first visit.", bullets: ["Shopify 2.0 themes", "Stripe checkout flows", "Subscription & memberships", "Conversion-optimised PDPs"] },
+  { n: "05", name: "SEO & Performance", desc: "Technical foundations and measurable growth from launch day one.", bullets: ["Core Web Vitals tuning", "Schema & sitemap", "Content strategy", "Search Console reporting"] },
 ];
 
 const Services = () => {

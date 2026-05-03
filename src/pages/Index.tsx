@@ -79,7 +79,7 @@ const PreviewWork = () => (
           buttery animations, considered typography, zero compromise.
         </p>
         <Link to="/work" className="mt-8 inline-flex items-center gap-2 ink-underline text-blue-deep">
-          Explore templates <ArrowUpRight className="h-4 w-4" />
+          Explore my projects <ArrowUpRight className="h-4 w-4" />
         </Link>
       </div>
       <div className="lg:col-span-7 relative h-[520px] lg:h-[600px] grid place-items-center">
@@ -93,10 +93,9 @@ const PreviewWork = () => (
 const HOME_SERVICES = [
   { n: "01", name: "Web Design", desc: "Bespoke design systems, art-directed pages, and considered motion that performs as well as it looks." },
   { n: "02", name: "Web Development", desc: "Hand-built React, Next.js, and Webflow with obsessive attention to performance." },
-  { n: "03", name: "Templates", desc: "Production-ready, licensable templates for studios and founders alike." },
-  { n: "04", name: "Brand & Identity", desc: "Logos, marks, and digital-first brand systems built to scale." },
-  { n: "05", name: "E-commerce", desc: "Headless and traditional commerce that converts on the first visit." },
-  { n: "06", name: "SEO & Performance", desc: "Technical foundations and measurable growth from launch day one." },
+  { n: "03", name: "Brand & Identity", desc: "Logos, marks, and digital-first brand systems built to scale." },
+  { n: "04", name: "E-commerce", desc: "Headless and traditional commerce that converts on the first visit." },
+  { n: "05", name: "SEO & Performance", desc: "Technical foundations and measurable growth from launch day one." },
 ];
 
 const PreviewServices = () => {
@@ -196,7 +195,7 @@ const PreviewAbout = () => {
           <StatCell value="03+" label="Years building" />
           <StatCell value="100" label="Lighthouse target" sub="every project" />
           <StatCell label="Sites shipped" loading />
-          <StatCell label="Templates licensed" loading />
+          <StatCell label="Projects deployed" loading />
         </motion.div>
       </div>
     </div>

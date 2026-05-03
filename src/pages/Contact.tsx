@@ -9,14 +9,14 @@ import { PageHero } from "@/components/PageHero";
 import { LineArt } from "@/components/LineArt";
 import portrait from "@/assets/portrait-will.jpeg";
 
-const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
-const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
-const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+const EMAILJS_SERVICE_ID = "service_646el04";
+const EMAILJS_TEMPLATE_ID = "service_646el04";
+const EMAILJS_PUBLIC_KEY = "Ce9sXtrrEkoTPrdBz";
 const CONTACT_EMAIL = "gilevo.co@gmail.com";
 
 const socials = [
   { Icon: Instagram, label: "Instagram", href: "https://instagram.com/gilevo.co" },
-  { Icon: Github, label: "GitHub", href: "https://github.com/" },
+  { Icon: Github, label: "GitHub", href: "https://github.com/WillG06" },
 ];
 
 const contactSchema = z.object({
@@ -99,7 +99,7 @@ const Contact = () => {
         eyebrow="Contact"
         titleSerif="Let's build"
         titleSans="something"
-        intro="Available for freelance projects, collaborations, and template licensing. Tell me about your project — quotes are always free."
+        intro="Available for bespoke projects and collaborations. Tell me about your project, quotes are always free!"
         variant="compass"
       />
 
@@ -167,7 +167,7 @@ const Contact = () => {
                       label="Project Type"
                       value={projectType}
                       onChange={(v) => { setProjectType(v); errors.project_type && setErrors({ ...errors, project_type: undefined }); }}
-                      options={["New Website", "Template", "Redesign", "Other"]}
+                      options={["New Website", "Redesign", "Landing Page", "Maintenance / Updates", "Other"]}
                       error={errors.project_type}
                     />
                     <CustomSelect
