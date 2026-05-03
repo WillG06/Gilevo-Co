@@ -22,17 +22,17 @@ export const Hero = () => {
              style={{ background: "radial-gradient(circle, hsl(var(--brand-gold)/0.30), transparent 70%)" }} />
       </div>
 
-      {/* Animated decorative line-art layer */}
       <HeroLineArt />
 
-      {/* 3D Armillary sphere — oversized, overlapping the wordmark's "O." */}
-      <div className="hidden md:block absolute top-1/2 right-[-6vw] lg:right-[-4vw] -translate-y-[55%] w-[72vw] max-w-[1100px] h-[110vh] max-h-[1100px] z-10 pointer-events-auto">
+      {/* 3D Armillary sphere */}
+      <div className="hidden min-[1250px]:block absolute top-2/3 right-[0vw] -translate-y-[50%] w-[40vw] max-w-[580px] min-w-[340px] h-[62vh] max-h-[640px] min-h-[380px] z-0 pointer-events-auto opacity-90">
         <Suspense fallback={null}>
           <Armillary />
         </Suspense>
       </div>
 
-      <div className="relative mx-auto max-w-[1440px] px-6 lg:px-10 pt-40 pb-32 min-h-[100svh] flex flex-col justify-center">
+      {/* Text content */}
+      <div className="relative z-[2] mx-auto max-w-[1440px] px-6 lg:px-10 pt-40 pb-32 min-h-[100svh] flex flex-col justify-center">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -86,7 +86,7 @@ export const Hero = () => {
         </motion.div>
       </div>
 
-      <div className="absolute bottom-8 left-6 lg:left-10 flex items-center gap-3 mono text-blue/70">
+      <div className="absolute bottom-8 left-6 lg:left-10 flex items-center gap-3 mono text-blue/70 z-[2]">
         <span className="rotate-180" style={{ writingMode: "vertical-rl" }}>Scroll to explore</span>
         <ArrowDown className="h-4 w-4 animate-scroll-arrow text-blue-deep" />
       </div>

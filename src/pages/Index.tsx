@@ -22,7 +22,8 @@ const Index = () => {
       <div className="relative">
         <StackSection index={0}><Hero /></StackSection>
         <StackSection index={1}><PreviewWork /></StackSection>
-        <StackSection index={2}><PreviewServices /></StackSection>
+        
+        <StackSection index={2} className="min-h-[220svh] lg:min-h-[150svh]"><PreviewServices /></StackSection>
         <StackSection index={3}><PreviewAbout /></StackSection>
         <StackSection index={4} last><CTABand /></StackSection>
       </div>
@@ -30,7 +31,17 @@ const Index = () => {
   );
 };
 
-const StackSection = ({ children, index, last }: { children: React.ReactNode; index: number; last?: boolean }) => {
+const StackSection = ({
+  children,
+  index,
+  last,
+  className = "",
+}: {
+  children: React.ReactNode;
+  index: number;
+  last?: boolean;
+  className?: string;
+}) => {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["end end", "end start"] });
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
@@ -40,7 +51,7 @@ const StackSection = ({ children, index, last }: { children: React.ReactNode; in
   return (
     <section
       ref={ref}
-      className="sticky top-0 min-h-[100svh]"
+      className={`sticky top-0 min-h-[100svh] ${className}`}
       style={{ zIndex: 10 + index }}
     >
       <motion.div
@@ -91,11 +102,12 @@ const HOME_SERVICES = [
 const PreviewServices = () => {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <div className="relative min-h-[100svh] py-24 lg:py-32 overflow-hidden bg-paper border-t border-hairline">
+
+    <div className="relative h-[100svh] overflow-y-auto bg-paper border-t border-hairline">
       <LineArt variant="grid" />
-      <div className="relative mx-auto max-w-[1440px] px-6 lg:px-10">
+      <div className="relative mx-auto max-w-[1440px] px-6 lg:px-10 py-24 lg:py-32">
         <p className="mono text-brand-blue mb-6">/ 02 — Services</p>
-        <h2 className="display-sans text-5xl lg:text-7xl tracking-tighter leading-[0.95] text-blue-deep max-w-3xl">
+        <h2 className="display-sans text-4xl md:text-5xl lg:text-7xl tracking-tighter leading-[0.95] text-blue-deep max-w-3xl">
           Six disciplines, <span className="display-serif text-brand-blue">one studio.</span>
         </h2>
         <ul className="mt-16 border-t border-hairline">
@@ -105,11 +117,11 @@ const PreviewServices = () => {
               <li key={s.n} className="border-b border-hairline">
                 <button
                   onClick={() => setOpen(isOpen ? null : i)}
-                  className="group flex items-baseline justify-between w-full py-6 text-left transition-all"
+                  className="group flex items-baseline justify-between w-full py-4 lg:py-6 text-left transition-all"
                 >
                   <span className="flex items-baseline gap-6">
                     <span className="mono text-faint">{s.n}</span>
-                    <span className={`display-sans text-3xl lg:text-5xl tracking-tight transition-colors ${isOpen ? "text-brand-blue-deep" : "text-ink group-hover:text-brand-blue"}`}>
+                    <span className={`display-sans text-2xl md:text-3xl lg:text-5xl tracking-tight transition-colors ${isOpen ? "text-brand-blue-deep" : "text-ink group-hover:text-brand-blue"}`}>
                       {s.name}
                     </span>
                   </span>
@@ -147,8 +159,8 @@ const PreviewAbout = () => {
 
   return (
     <div ref={ref} className="relative min-h-[100svh] py-24 lg:py-32 overflow-hidden border-t border-hairline bg-background">
-      {/* G&C particle field — dispersed top-right, converges to wordmark on scroll-in */}
-      <div className="hidden md:block absolute top-0 right-0 w-[62vw] max-w-[900px] h-[78vh] max-h-[820px] pointer-events-none z-[1]">
+
+      <div className="hidden lg:block absolute bottom-1/3 right-0 w-[62vw] max-w-[900px] h-[78vh] max-h-[820px] pointer-events-none z-[1]">
         <Suspense fallback={null}>
           <LogoParticles />
         </Suspense>
@@ -264,8 +276,9 @@ const CTABand = () => (
 
     <div className="relative text-center px-6 max-w-4xl">
       <p className="mono text-brand-gold mb-6">/ Let's begin</p>
-      <h2 className="display-sans text-6xl lg:text-9xl tracking-tighter leading-[0.92]">
-        Build something<br /><span className="display-serif text-brand-gold">remarkable.</span>
+      <h2 className="display-sans text-5xl lg:text-8xl tracking-tighter leading-[0.92]">
+        Designed to perform.<br />
+        <span className="display-serif text-brand-gold">Built to last.</span>
       </h2>
       <p className="mt-8 text-background/70 text-lg max-w-xl mx-auto leading-relaxed">
         Available for freelance projects, collaborations, and template licensing.
