@@ -17,11 +17,9 @@ const cols = [
     title: "Elsewhere",
     external: true,
     links: [
-      { label: "Instagram", to: "https://instagram.com/" },
-      { label: "LinkedIn", to: "https://linkedin.com/" },
-      { label: "Behance", to: "https://behance.net/" },
-      { label: "GitHub", to: "https://github.com/" },
-      { label: "Twitter / X", to: "https://x.com/" },
+      { label: "Instagram", to: "https://instagram.com/gilevo.co/" },
+      { label: "LinkedIn", to: "www.linkedin.com/in/williamedwardgiles/" },
+      { label: "GitHub", to: "https://github.com/WillG06/" },
     ],
   },
 ];
@@ -33,9 +31,9 @@ export const Footer = () => (
         <Logo />
         <p className="mt-6 max-w-sm text-ink/65 leading-relaxed">
           Bespoke web design &amp; development from Birmingham, UK.
-          Sites engineered to be seen — and to convert.
+          Sites engineered to be seen.
         </p>
-        <p className="mt-6 mono text-faint">/ Available for projects · 2025</p>
+        <p className="mt-6 mono text-faint">/ Available for projects · 2026</p>
       </div>
       {cols.map((c) => (
         <div key={c.title} className="lg:col-span-2">
@@ -64,13 +62,13 @@ export const Footer = () => (
         <p className="display-serif text-2xl text-ink">Birmingham, UK</p>
         <p className="mono text-faint mt-2">52.4862° N, 1.8904° W</p>
         <a href="mailto:hello@gilevoandco.com" className="mt-6 inline-block ink-underline text-ink">
-          hello@gilevoandco.com
+          gilevo.co@gmail.com
         </a>
       </div>
     </div>
     <div className="border-t border-hairline">
       <div className="mx-auto max-w-[1440px] px-6 lg:px-10 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 mono text-faint">
-        <p>© 2025 Gilevo &amp; Co. — All rights reserved.</p>
+        <p>© 2026 Gilevo &amp; Co. - All rights reserved.</p>
         <p>Designed &amp; Built by Gilevo &amp; Co.</p>
       </div>
     </div>

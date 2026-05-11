@@ -68,7 +68,7 @@ export const Hero = () => {
           className="mt-12 max-w-xl text-base md:text-lg text-ink/70 leading-relaxed"
         >
           Web design &amp; development from Birmingham, UK.
-          Bespoke websites and licensable templates engineered for performance and the senses.
+          Bespoke websites engineered for performance and the senses.
         </motion.p>
 
         <motion.div

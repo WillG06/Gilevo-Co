@@ -13,12 +13,12 @@ const cards = [
 
 const steps = [
   { n: "01", title: "Discovery", desc: "We align on goals, audience, and success metrics." },
-  { n: "02", title: "Design", desc: "Mood, typography, layout — iterated to perfection." },
+  { n: "02", title: "Design", desc: "Mood, typography, layout, iterated to perfection." },
   { n: "03", title: "Build", desc: "Hand-crafted code with obsessive performance discipline." },
   { n: "04", title: "Launch", desc: "Go-live, hand-over, and 30 days of post-launch support." },
 ];
 
-const stack = ["Figma", "React", "Next.js", "Webflow", "WordPress", "Framer", "GSAP", "Three.js"];
+const stack = ["React", "Node.js", "Next.js", "Typescript", "Tailwind", "Vercel", "GSAP", "Three.js"];
 
 const About = () => {
   return (
@@ -27,7 +27,7 @@ const About = () => {
         eyebrow="About"
         titleSerif="Independent."
         titleSans="Obsessive"
-        intro="A Birmingham-based web design and development studio of one — building fast, beautiful, conversion-focused websites for businesses who want to be seen."
+        intro="A Birmingham-based web design and development studio of one, building fast, beautiful, conversion-focused websites for businesses who want to be seen."
         variant="orbit"
       />
 
@@ -59,10 +59,10 @@ const About = () => {
               <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.6 }}>
                 <p className="mono text-brand-blue">/ The studio</p>
                 <p className="mt-6 text-ink/75 leading-relaxed text-lg">
-                  I'm Will — a Birmingham-based web designer and developer building fast, beautiful, conversion-focused websites for businesses of every size. I specialise in bespoke digital experiences that are visually striking and technically sound — sites built to be seen, and to convert.
+                  I'm Will, a Birmingham-based web designer and developer building high-performance, conversion-focused websites for businesses wanting to be seen. Every site I create is bespoke, visually refined, and engineered to deliver results.
                 </p>
                 <p className="mt-4 text-ink/65 leading-relaxed">
-                  Every project is hand-crafted end-to-end. No templates I haven't touched, no third-party page builders, no compromise on the details that turn a good site into a great one.
+                  Every project is hand-crafted end-to-end. No templates, no compromise on the details that turn a good site into a great one.
                 </p>
               </motion.div>
 

@@ -75,7 +75,7 @@ const PreviewWork = () => (
           Pixel-perfect on<br /><span className="display-serif text-brand-blue">every screen.</span>
         </h2>
         <p className="mt-6 text-ink/65 leading-relaxed max-w-md">
-          Our work is engineered to feel premium from the first paint —
+          Our work is engineered to feel premium from the first preview, 
           buttery animations, considered typography, zero compromise.
         </p>
         <Link to="/work" className="mt-8 inline-flex items-center gap-2 ink-underline text-blue-deep">
@@ -92,7 +92,7 @@ const PreviewWork = () => (
 /* ============ Section 2: Services — interactive accordion ============ */
 const HOME_SERVICES = [
   { n: "01", name: "Web Design", desc: "Bespoke design systems, art-directed pages, and considered motion that performs as well as it looks." },
-  { n: "02", name: "Web Development", desc: "Hand-built React, Next.js, and Webflow with obsessive attention to performance." },
+  { n: "02", name: "Web Development", desc: "Hand-built tech stacks with obsessive attention to performance." },
   { n: "03", name: "Brand & Identity", desc: "Logos, marks, and digital-first brand systems built to scale." },
   { n: "04", name: "E-commerce", desc: "Headless and traditional commerce that converts on the first visit." },
   { n: "05", name: "SEO & Performance", desc: "Technical foundations and measurable growth from launch day one." },
@@ -159,7 +159,7 @@ const PreviewAbout = () => {
   return (
     <div ref={ref} className="relative min-h-[100svh] py-24 lg:py-32 overflow-hidden border-t border-hairline bg-background">
 
-      <div className="hidden lg:block absolute bottom-1/3 right-0 w-[62vw] max-w-[900px] h-[78vh] max-h-[820px] pointer-events-none z-[1]">
+      <div className="hidden lg:block absolute -top-16 right-[20%] w-[62vw] max-w-[900px] h-[78vh] max-h-[820px] pointer-events-none z-[1]">
         <Suspense fallback={null}>
           <LogoParticles />
         </Suspense>
@@ -175,7 +175,7 @@ const PreviewAbout = () => {
             Independent.<br /><span className="display-serif text-brand-blue">Obsessive.</span>
           </h2>
           <p className="mt-8 max-w-xl text-ink/70 text-lg leading-relaxed">
-            A Birmingham-based design &amp; development studio of one — building
+            A Birmingham-based design &amp; development studio of one, building
             fast, beautiful, conversion-focused websites for businesses who
             want to be seen.
           </p>

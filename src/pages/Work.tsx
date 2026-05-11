@@ -499,7 +499,7 @@ const BespokeBlock = () => (
           <span className="display-serif italic text-brand-blue">bespoke?</span>
         </h2>
         <p className="mt-6 text-ink/65 leading-relaxed max-w-lg">
-          Every project is designed and built from scratch — tailored entirely to your brand, your
+          Every project is designed and built from scratch, tailored entirely to your brand, your
           audience, and your goals. No templates, no shortcuts. Built by hand, optimised to the
           millisecond, and shipped with care.
         </p>
@@ -538,7 +538,7 @@ const Work = () => (
       eyebrow="Work — Projects"
       titleSerif="Projects"
       titleSans="& Work"
-      intro="Fully built, live websites — each one designed and developed from scratch, unique to the client. Responsive, fast, and crafted with care."
+      intro="Fully built, live websites, each one designed and developed from scratch, unique to the client. Responsive, fast, and crafted with care."
       variant="topo"
     />
     <section className="relative pb-20 overflow-hidden">

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
-import { Check, Copy, Instagram, Github, Mail, MapPin, AlertTriangle, ChevronDown } from "lucide-react";
+import { Check, Copy, Instagram, Github, Mail, MapPin, AlertTriangle, ChevronDown, Linkedin } from "lucide-react";
 import { toast } from "sonner";
 import { useLocation } from "react-router-dom";
 import { z } from "zod";
@@ -17,6 +17,7 @@ const CONTACT_EMAIL = "gilevo.co@gmail.com";
 const socials = [
   { Icon: Instagram, label: "Instagram", href: "https://instagram.com/gilevo.co" },
   { Icon: Github, label: "GitHub", href: "https://github.com/WillG06" },
+  { Icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/williamedwardgiles/" },
 ];
 
 const contactSchema = z.object({

@@ -6,16 +6,17 @@ import { LineArt } from "@/components/LineArt";
 
 const tiers = [
   {
-    label: "PAY IN FULL",
-    name: "One-Time",
-    desc: "Own your website outright from day one. A single investment, no ongoing commitment.",
+    label: "50 / 50 PAYMENT",
+    name: "Split Investment",
+    desc: "Secure your project with 50% upfront and pay the remaining 50% once your website is complete and ready to launch.",
     price: "Custom",
-    sub: "Free quote (every project priced bespoke)",
+    sub: "50% upfront · 50% on completion",
     addon: "+ £50/mo · maintenance, hosting & domain",
     features: [
+      "Clear project contract provided before payment",
       "Custom design & development",
       "Bespoke pages - built to brief",
-      "Mobile responsive · 100/100 Lighthouse target",
+      "Responsive on all devices · 100/100 Lighthouse target",
       "SEO foundations · schema · sitemap",
       "30-day post-launch support",
       "You own everything, forever",
@@ -31,6 +32,7 @@ const tiers = [
     sub: "then equal monthly instalments - 6 or 12 months",
     addon: "+ £50/mo · maintenance, hosting & domain",
     features: [
+      "Clear project contract provided before payment",
       "Everything in One-Time, plus:",
       "Priority build queue",
       "Monthly check-in calls",
@@ -61,9 +63,9 @@ const Pricing = () => {
         {/* Soft brand wash */}
         <div aria-hidden className="absolute inset-0 -z-0 pointer-events-none">
           <div className="absolute top-20 left-10 h-[40vh] w-[40vh] rounded-full blur-3xl opacity-25"
-               style={{ background: "radial-gradient(circle, hsl(var(--brand-blue)/0.6), transparent 70%)" }} />
+            style={{ background: "radial-gradient(circle, hsl(var(--brand-blue)/0.6), transparent 70%)" }} />
           <div className="absolute bottom-20 right-10 h-[40vh] w-[40vh] rounded-full blur-3xl opacity-25"
-               style={{ background: "radial-gradient(circle, hsl(var(--brand-gold)/0.5), transparent 70%)" }} />
+            style={{ background: "radial-gradient(circle, hsl(var(--brand-gold)/0.5), transparent 70%)" }} />
         </div>
 
         <div className="relative mx-auto max-w-[1440px] px-6 lg:px-10">
@@ -75,11 +77,10 @@ const Pricing = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.7, delay: i * 0.1 }}
-                className={`relative rounded-3xl overflow-hidden flex flex-col ${
-                  t.popular
+                className={`relative rounded-3xl overflow-hidden flex flex-col ${t.popular
                     ? "bg-brand-blue-deep text-background shadow-[0_40px_80px_-30px_hsl(var(--brand-blue-deep)/0.5)]"
                     : "bg-background border border-hairline"
-                }`}
+                  }`}
               >
                 {t.popular && (
                   <span className="absolute top-6 right-6 mono px-3 py-1 rounded-full bg-brand-gold text-brand-blue-deep">
@@ -121,11 +122,10 @@ const Pricing = () => {
                   <Link
                     to="/contact"
                     state={{ plan: t.name === "One-Time" ? "One-Time Payment" : "Flexible Plan" }}
-                    className={`mt-10 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full transition-all ${
-                      t.popular
+                    className={`mt-10 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full transition-all ${t.popular
                         ? "bg-brand-gold text-brand-blue-deep hover:bg-background"
                         : "border border-brand-blue-deep text-brand-blue-deep hover:bg-brand-blue-deep hover:text-background"
-                    }`}
+                      }`}
                   >
                     {t.cta} →
                   </Link>
@@ -136,8 +136,8 @@ const Pricing = () => {
 
           <p className="mt-12 text-center text-ink/55 text-sm max-w-2xl mx-auto leading-relaxed">
             All plans include hosting setup, SSL, and a fully managed handover.
-            Maintenance covers uptime monitoring, security updates, and content edits.
-            Free quotes always — no obligation.
+            Maintenance covers uptime monitoring, security updates, and minor content edits.
+            Free quotes always - no obligation.
           </p>
 
           {/* Maintenance breakdown */}
