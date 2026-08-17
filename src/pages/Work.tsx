@@ -39,7 +39,7 @@ import bcStory from "@/assets/BC_Story.png";
 // import GCKvisit from "@/assets/GCKVisit.png";
 import pvHome from "@/assets/PV_Home.png";
 import pvMenu from "@/assets/PV_Menu.png";
-import pvEvents from "@/assets/PV_events.png";
+import pvEvents from "@/assets/PV_Events.png";
 import pvContact from "@/assets/PV_Contact.png";
 
 type Frame = { src: string; label: string };
