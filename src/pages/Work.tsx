@@ -13,20 +13,34 @@ import coffeeMenu from "@/assets/CoffeeCoMenu.png";
 import coffeeVisit from "@/assets/CoffeeCoVisit.png";
 import coffeeGallery from "@/assets/CoffeeCoGallery.png";
 
-import cherryHome from "@/assets/CherryRedHome.png";
-import cherryMenu from "@/assets/CherryRedMenu.png";
-import cherryEvents from "@/assets/CherryRedEvents.png";
-import cherryRooms from "@/assets/CherryRedRooms.png";
+//import cherryHome from "@/assets/CherryRedHome.png";
+//import cherryMenu from "@/assets/CherryRedMenu.png";
+//import cherryEvents from "@/assets/CherryRedEvents.png";
+//import cherryRooms from "@/assets/CherryRedRooms.png";
+import bsHome from "@/assets/BS_Home.png";
+import bsTenancies from "@/assets/BS_Tenancies.png";
+import bsAbout from "@/assets/BS_About.png";
+import bsContact from "@/assets/BS_Contact.png";
 
-import foxHome from "@/assets/FoxHome.png";
-import foxMenu from "@/assets/FoxMenu.png";
-import foxGallery from "@/assets/FoxGallery.png";
-import foxContact from "@/assets/FoxContact.png";
 
-import GCKhome from "@/assets/GCKHome.png";
-import GCKgallery from "@/assets/GCKGallery.png";
-import GCKstory from "@/assets/GCKStory.png";
-import GCKvisit from "@/assets/GCKVisit.png";
+//import foxHome from "@/assets/FoxHome.png";
+//import foxMenu from "@/assets/FoxMenu.png";
+//import foxGallery from "@/assets/FoxGallery.png";
+//import foxContact from "@/assets/FoxContact.png";
+import bcHome from "@/assets/BC_Home.png";
+import bcMenu from "@/assets/BC_Menu.png";
+import bcVisit from "@/assets/BC_Visit.png";
+import bcStory from "@/assets/BC_Story.png";
+
+
+// import GCKhome from "@/assets/GCKHome.png";
+// import GCKgallery from "@/assets/GCKGallery.png";
+// import GCKstory from "@/assets/GCKStory.png";
+// import GCKvisit from "@/assets/GCKVisit.png";
+import pvHome from "@/assets/PV_Home.png";
+import pvMenu from "@/assets/PV_Menu.png";
+import pvEvents from "@/assets/PV_Events.png";
+import pvContact from "@/assets/PV_Contact.png";
 
 type Frame = { src: string; label: string };
 type Project = {
@@ -55,47 +69,48 @@ const projects: Project[] = [
     domain: "thecoffeebarcollective.co.uk",
   },
   {
-    id: "cherry-reds",
-    name: "Cherry Reds",
-    category: "Hospitality / Bar & Kitchen",
-    liveUrl: "https://willg06.github.io/CherryReds/",
-    desc: "An editorial bar and kitchen site, bold typography, art-directed photography.",
-    frames: [
-      { src: cherryHome, label: "home" },
-      { src: cherryMenu, label: "menu" },
-      { src: cherryEvents, label: "events" },
-      { src: cherryRooms, label: "reservations" },
-    ],
-    domain: "cherryreds.com",
-  },
-  {
-    id: "the-sly-old-fox",
-    name: "The Sly Old Fox",
-    category: "Hospitality / Pub",
-    liveUrl: "https://willg06.github.io/TheSlyOldFox/",
-    desc: "A characterful pub site, warm, welcoming, and built around food, drink and community.",
-    frames: [
-      { src: foxHome, label: "home" },
-      { src: foxMenu, label: "food" },
-      { src: foxGallery, label: "gallery" },
-      { src: foxContact, label: "contact" },
-    ],
-    domain: "theslyoldfox.co.uk",
-  },
-  {
-    id: "grand-central-kitchen",
-    name: "Grand Central Kitchen",
+    id: "PaneAndVino",//id: "grand-central-kitchen",
+    name: "Pane & Vino",//name: "Grand Central Kitchen",
     category: "Hospitality / Restaurant",
-    liveUrl: "https://willg06.github.io/GrandCentralKitchen/",
+    liveUrl: "https://willg06.github.io/the-gilded-plate/",
     desc: "A refined restaurant site built for storytelling, menus, and table bookings — designed to feel as good as the food.",
     frames: [
-      { src: GCKhome, label: "home" },
-      { src: GCKgallery, label: "menu" },
-      { src: GCKvisit, label: "visit" },
-      { src: GCKstory, label: "story" },
+      { src: pvHome, label: "home" },
+      { src: pvMenu, label: "menu" },
+      { src: pvEvents, label: "events" },
+      { src: pvContact, label: "contact" },
     ],
     domain: "grandcentralkitchen.co.uk",
   },
+  {
+    id: "BridgeSt.Newark",//id: "cherry-reds",
+    name: "BridgeSt.Newark",//name: "Cherry Reds",
+    category: "Property Invstment",//category: "Hospitality / Bar & Kitchen",
+    liveUrl: "https://willg06.github.io/BridgeSt.Newark/",
+    desc: "A credibility-first investment site, restrained design, clear numbers, and built to reassure prospective investors.",//desc: "An editorial bar and kitchen site, bold typography, art-directed photography.",
+    frames: [
+      { src: bsHome, label: "home" },
+      { src: bsTenancies, label: "tenancies" },
+      { src: bsAbout, label: "about" },
+      { src: bsContact, label: "contact" },
+    ],
+    domain: "https://willg06.github.io/BridgeSt.Newark/",
+  },
+  {
+    id: "BerryCoffee",//id: "the-sly-old-fox",
+    name: "Berry Coffee",//name: "The Sly Old Fox",
+    category: "Hospitality / Cafe",//category: "Hospitality / Pub",
+    liveUrl: "https://willg06.github.io/BerryCoffee/",
+    desc: "A characterful cafe site, warm, minimal, and built around refined coffee, filled cookies and community.",
+    frames: [
+      { src: bcHome, label: "home" },
+      { src: bcMenu, label: "menu" },
+      { src: bcVisit, label: "visit" },
+      { src: bcStory, label: "story" },
+    ],
+    domain: "willg06.github.io/BerryCoffee/",
+  },
+  
 ];
 
 /* ─── Lightbox ─────────────────────────────────────────────────────────── */
