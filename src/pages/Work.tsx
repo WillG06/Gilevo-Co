@@ -154,7 +154,7 @@ const Lightbox = ({ src, label, onClose }: { src: string; label: string; onClose
             </button>
           </div>
           <div className="overflow-y-auto overflow-x-hidden flex-1 bg-background">
-            <img src={src} alt={label} className="w-full block select-none" draggable={false} />
+            <img src={src} alt={label} className="w-full block select-none" draggable={false} decoding="async" />
           </div>
         </motion.div>
       </motion.div>
@@ -162,49 +162,70 @@ const Lightbox = ({ src, label, onClose }: { src: string; label: string; onClose
   );
 };
 
-/* ─── Shared scroll preview hook ──────────────────────────────────────── */
+/* ─── Shared scroll preview internals (used by both mobile card & desktop big preview) ── */
+// Module-level registry so only one scroll preview ever animates at a time —
+// starting a new one stops whichever was already playing.
+const activeStoppers = new Set<() => void>();
+
 const useScrollPreview = (activeIndex: number) => {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const rafRef = useRef<number | null>(null);
+  const trackRef = useRef<HTMLDivElement>(null); // fixed-height, overflow-hidden viewport
+  const imgRef = useRef<HTMLImageElement>(null); // the actual image we translateY
   const scrollPos = useRef(0);
+  const rafRef = useRef<number | null>(null);
+  const lastTsRef = useRef<number | null>(null);
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  const stopRaf = useCallback(() => {
-    if (rafRef.current) { cancelAnimationFrame(rafRef.current); rafRef.current = null; }
+  const stopLoop = useCallback(() => {
+    if (rafRef.current !== null) { cancelAnimationFrame(rafRef.current); rafRef.current = null; }
+    lastTsRef.current = null;
+  }, []);
+
+  const applyTransform = useCallback((y: number) => {
+    if (imgRef.current) imgRef.current.style.transform = `translate3d(0, ${-y}px, 0)`;
   }, []);
 
   const reset = useCallback(() => {
-    stopRaf();
+    stopLoop();
     setPlaying(false);
     setProgress(0);
     scrollPos.current = 0;
-    if (trackRef.current) trackRef.current.scrollTop = 0;
-  }, [stopRaf]);
+    applyTransform(0);
+  }, [stopLoop, applyTransform]);
 
   useEffect(() => { reset(); }, [activeIndex, reset]);
 
   useEffect(() => {
-    if (!playing) { stopRaf(); return; }
+    if (!playing) { stopLoop(); return; }
 
-    let last = 0;
-    const step = (ts: number) => {
-      if (!trackRef.current) return;
-      // throttle to ~30fps for performance
-      if (ts - last < 32) { rafRef.current = requestAnimationFrame(step); return; }
-      last = ts;
-      const el = trackRef.current;
-      const max = el.scrollHeight - el.clientHeight;
+    // pause every other currently-playing preview on the page
+    activeStoppers.forEach((stop) => stop());
+    activeStoppers.add(reset);
+
+    const SPEED_PX_PER_SEC = 84; // ≈ old 1.4px per 16ms tick
+
+    const tick = (ts: number) => {
+      const track = trackRef.current;
+      const img = imgRef.current;
+      if (!track || !img) return;
+      const max = img.scrollHeight - track.clientHeight;
       if (max <= 0) { reset(); return; }
-      scrollPos.current = Math.min(scrollPos.current + 2.2, max);
-      el.scrollTop = scrollPos.current;
+
+      if (lastTsRef.current === null) lastTsRef.current = ts;
+      const dt = ts - lastTsRef.current;
+      lastTsRef.current = ts;
+
+      scrollPos.current = Math.min(scrollPos.current + (SPEED_PX_PER_SEC * dt) / 1000, max);
+      applyTransform(scrollPos.current);
       setProgress(scrollPos.current / max);
-      if (scrollPos.current >= max) { stopRaf(); setPlaying(false); return; }
-      rafRef.current = requestAnimationFrame(step);
+
+      if (scrollPos.current >= max) { stopLoop(); setPlaying(false); return; }
+      rafRef.current = requestAnimationFrame(tick);
     };
-    rafRef.current = requestAnimationFrame(step);
-    return stopRaf;
-  }, [playing, stopRaf, reset]);
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => { stopLoop(); activeStoppers.delete(reset); };
+  }, [playing, stopLoop, applyTransform, reset]);
 
   useEffect(() => {
     const h = () => { if (document.hidden) setPlaying(false); };
@@ -212,7 +233,7 @@ const useScrollPreview = (activeIndex: number) => {
     return () => document.removeEventListener("visibilitychange", h);
   }, []);
 
-  return { trackRef, playing, setPlaying, progress, reset };
+  return { trackRef, imgRef, playing, setPlaying, progress, reset };
 };
 
 /* ─── Desktop: full-width scroll preview ──────────────────────────────── */
@@ -222,7 +243,7 @@ const DesktopPreview = ({
   project: Project; activeIndex: number;
   onPrev: () => void; onNext: () => void; onPickIndex: (i: number) => void;
 }) => {
-  const { trackRef, playing, setPlaying, progress, reset } = useScrollPreview(activeIndex);
+  const { trackRef, imgRef, playing, setPlaying, progress, reset } = useScrollPreview(activeIndex);
   const frame = project.frames[activeIndex];
 
   return (
@@ -264,20 +285,11 @@ const DesktopPreview = ({
 
       {/* Viewport */}
       <div className="relative">
-        {/* GPU layer hint on scroll container */}
-        <div
-          ref={trackRef}
-          className="h-[560px] lg:h-[680px] overflow-hidden"
-          style={{ scrollBehavior: "auto", transform: "translateZ(0)" }}
-        >
-          <img
-            key={`${project.id}-${activeIndex}`}
-            src={frame.src}
+        <div ref={trackRef} className="h-[560px] lg:h-[680px] overflow-hidden">
+          <img ref={imgRef} key={`${project.id}-${activeIndex}`} src={frame.src}
             alt={`${project.name} — ${frame.label}`}
-            className="w-full block select-none"
-            draggable={false}
-            loading="lazy"
-          />
+            className="w-full block select-none will-change-transform" draggable={false}
+            loading="lazy" decoding="async" />
         </div>
 
         {/* Play overlay — no backdrop-blur for perf */}
@@ -324,7 +336,7 @@ const DesktopPreview = ({
 
 /* ─── Mobile: compact scroll preview card ─────────────────────────────── */
 const MobilePreviewCard = ({ project }: { project: Project }) => {
-  const { trackRef, playing, setPlaying, progress, reset } = useScrollPreview(0);
+  const { trackRef, imgRef, playing, setPlaying, progress, reset } = useScrollPreview(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const frame = project.frames[0];
 
@@ -350,11 +362,11 @@ const MobilePreviewCard = ({ project }: { project: Project }) => {
           </button>
         </div>
 
-        <div className="relative aspect-[3/4] overflow-hidden bg-paper">
-          <div ref={trackRef} className="absolute inset-0 overflow-hidden" style={{ scrollBehavior: "auto", transform: "translateZ(0)" }}>
-            <img src={frame.src} alt={`${project.name} — home`}
-              className="w-full block select-none" draggable={false} loading="lazy" />
-          </div>
+        {/* Image viewport — same aspect ratio as sibling thumbs */}
+        <div ref={trackRef} className="relative aspect-[3/4] overflow-hidden bg-paper">
+          <img ref={imgRef} src={frame.src} alt={`${project.name} — home`}
+            className="w-full block select-none will-change-transform" draggable={false}
+            loading="lazy" decoding="async" />
 
           {!playing && (
             <div className="absolute inset-0 flex flex-col items-center justify-center bg-brand-blue-deep/20">
@@ -406,7 +418,7 @@ const StaticThumb = ({ frame, projectName }: { frame: Frame; projectName: string
         <div className="relative aspect-[3/4] overflow-hidden bg-paper">
           <img src={frame.src} alt={`${projectName} — ${frame.label}`}
             className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500"
-            loading="lazy" />
+            loading="lazy" decoding="async" />
           <div className="absolute inset-0 bg-brand-blue-deep/0 group-hover:bg-brand-blue-deep/20 transition-colors duration-300 flex items-center justify-center">
             <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-background/90 rounded-full px-3 py-1.5 mono text-[0.6rem] text-brand-blue-deep flex items-center gap-1">
               View full page <ArrowUpRight className="h-3 w-3" />
@@ -432,7 +444,7 @@ const ProjectGallery = ({ project, index }: { project: Project; index: number })
   const prev = () => setActiveIndex((i) => (i - 1 + project.frames.length) % project.frames.length);
   const next = () => setActiveIndex((i) => (i + 1) % project.frames.length);
 
-  // All frames except home for thumbnail rows
+  // All frames except home for desktop thumbnail row
   const thumbFrames = project.frames.filter((f) => f.label !== "home");
 
   return (
@@ -464,6 +476,11 @@ const ProjectGallery = ({ project, index }: { project: Project; index: number })
         </div>
       </div>
 
+      {/*
+        MOBILE  (< lg): 2×2 grid — top-left is the scroll preview card, rest are static thumbs
+        DESKTOP (≥ lg): big preview on top, 3 equal thumbnails in a row below (same total width)
+      */}
+
       {/* ── Mobile 2×2 grid ── */}
       <div className="lg:hidden grid grid-cols-2 gap-3">
         <MobilePreviewCard project={project} />
@@ -472,9 +489,8 @@ const ProjectGallery = ({ project, index }: { project: Project; index: number })
         ))}
       </div>
 
-      {/* ── Desktop: large preview + 3 thumbs below ── */}
-      <div className="hidden lg:block space-y-5">
-        {/* Full-width large preview */}
+      {/* ── Desktop stacked layout: big preview on top, 3 small thumbnails in a row below ── */}
+      <div className="hidden lg:block">
         <DesktopPreview
           project={project}
           activeIndex={activeIndex}
@@ -482,8 +498,7 @@ const ProjectGallery = ({ project, index }: { project: Project; index: number })
           onNext={next}
           onPickIndex={setActiveIndex}
         />
-        {/* 3 thumbnails in a row below */}
-        <div className="grid grid-cols-3 gap-5">
+        <div className="grid grid-cols-3 gap-4 mt-4">
           {thumbFrames.map((f, i) => (
             <StaticThumb key={`desk-${project.id}-${f.label}-${i}`} frame={f} projectName={project.name} />
           ))}

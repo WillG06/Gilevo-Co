@@ -59,7 +59,6 @@ export const Nav = () => {
 
   useEffect(() => { setOpen(false); setHovered(null); }, [pathname]);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -76,20 +75,31 @@ export const Nav = () => {
         className={`fixed top-0 inset-x-0 z-[55] transition-all duration-500 ${scrolled ? "py-3" : "py-5"}`}
         onMouseLeave={() => setHovered(null)}
       >
-        <div className="mx-auto max-w-[1440px] px-6 lg:px-10 flex items-center justify-between">
+        {/*
+          Full-width layout — no max-w cap on the outer wrapper.
+          Logo pinned to left edge, CTA pinned to right edge, nav centred absolutely.
+          px-6 on smaller desktops, px-10 on larger — matches the rest of the site.
+        */}
+        <div className="relative w-full px-6 xl:px-10 flex items-center justify-between">
+
+          {/* Logo — far left */}
           <Logo invert={!!hoveredItem} />
 
-          <nav className="hidden md:flex items-center gap-1 glass-light rounded-full px-2 py-2 shadow-sm">
+          {/* Nav pill — absolutely centred so it never squashes logo/CTA */}
+          <nav
+            aria-label="Primary navigation"
+            className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-0.5 glass-light rounded-full px-2 py-1.5 shadow-sm"
+          >
             {links.map((l) => (
               <div key={l.label} className="relative" onMouseEnter={() => setHovered(l.label)}>
                 <NavLink
                   to={l.to}
                   className={({ isActive }) =>
-                    `relative inline-flex items-center gap-2 px-4 py-2 text-sm transition-all rounded-full ${
+                    `relative inline-flex items-center gap-1.5 px-3.5 py-2 text-[0.8125rem] font-medium transition-all rounded-full whitespace-nowrap ${
                       isActive
                         ? "text-background bg-brand-blue-deep"
                         : hovered === l.label
-                          ? "text-brand-blue-deep bg-brand-blue-soft"
+                          ? "text-brand-blue-deep bg-brand-blue/[0.08]"
                           : "text-ink/60 hover:text-brand-blue-deep"
                     }`
                   }
@@ -97,7 +107,10 @@ export const Nav = () => {
                   {({ isActive }) => (
                     <>
                       {isActive && (
-                        <motion.span layoutId="active-dot" className="h-1.5 w-1.5 rounded-full bg-brand-gold" />
+                        <motion.span
+                          layoutId="nav-active-dot"
+                          className="h-1.5 w-1.5 rounded-full bg-brand-gold shrink-0"
+                        />
                       )}
                       {l.label}
                     </>
@@ -107,39 +120,47 @@ export const Nav = () => {
             ))}
           </nav>
 
-          <Link
-            to="/contact"
-            className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 text-sm rounded-full bg-brand-blue-deep text-background hover:bg-brand-gold hover:text-brand-blue-deep transition-colors group"
-          >
-            Start a project
-            <span className="transition-transform group-hover:translate-x-0.5">→</span>
-          </Link>
+          {/* CTA + mobile burger — far right */}
+          <div className="flex items-center gap-3">
+            <Link
+              to="/contact"
+              className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 text-[0.8125rem] font-medium rounded-full bg-brand-blue-deep text-background hover:bg-brand-gold hover:text-brand-blue-deep transition-colors group whitespace-nowrap"
+            >
+              Start a project
+              <span className="transition-transform group-hover:translate-x-0.5 leading-none">→</span>
+            </Link>
 
-          <button
-            onClick={() => setOpen(true)}
-            aria-label="Open menu"
-            className="md:hidden h-10 w-10 grid place-items-center glass-light rounded-full"
-          >
-            <Menu className="h-5 w-5" />
-          </button>
+            <button
+              onClick={() => setOpen(true)}
+              aria-label="Open menu"
+              className="md:hidden h-10 w-10 grid place-items-center glass-light rounded-full"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+          </div>
         </div>
       </motion.header>
 
-      {/* Desktop hover overlay */}
+      {/* ── Desktop hover mega-panel ── */}
       <AnimatePresence>
         {hoveredItem && (
           <motion.div
             key="nav-preview"
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.35, ease: [0.65, 0, 0.35, 1] }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.32, ease: [0.65, 0, 0.35, 1] }}
             className="fixed top-0 inset-x-0 z-[54] pointer-events-none"
             onMouseEnter={() => setHovered(hoveredItem.label)}
             onMouseLeave={() => setHovered(null)}
           >
             <div className="glass-blue pointer-events-auto pt-24 pb-10 overflow-hidden relative">
-              <svg aria-hidden className="absolute inset-0 w-full h-full text-brand-gold/20" viewBox="0 0 1440 240" preserveAspectRatio="none">
+              <svg
+                aria-hidden
+                className="absolute inset-0 w-full h-full text-brand-gold/20"
+                viewBox="0 0 1440 240"
+                preserveAspectRatio="none"
+              >
                 <g fill="none" stroke="currentColor" strokeWidth="0.6">
                   {Array.from({ length: 7 }).map((_, i) => (
                     <motion.path
@@ -152,9 +173,12 @@ export const Nav = () => {
                   ))}
                 </g>
               </svg>
-              <div className="relative mx-auto max-w-[1440px] px-6 lg:px-10 grid lg:grid-cols-12 gap-10 items-start">
+
+              <div className="relative w-full px-6 xl:px-10 grid lg:grid-cols-12 gap-10 items-start">
                 <div className="lg:col-span-2">
-                  <p className="mono text-brand-gold/80">/ {String(links.indexOf(hoveredItem) + 1).padStart(2, "0")}</p>
+                  <p className="mono text-brand-gold/80">
+                    / {String(links.indexOf(hoveredItem) + 1).padStart(2, "0")}
+                  </p>
                   <p className="mono text-background/50 mt-2">Page</p>
                 </div>
                 <div className="lg:col-span-6">
@@ -174,7 +198,7 @@ export const Nav = () => {
                         key={b}
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1 + i * 0.06 }}
+                        transition={{ delay: 0.08 + i * 0.06 }}
                         className="text-background/80 text-sm flex items-start gap-2"
                       >
                         <span className="text-brand-gold mt-0.5">+</span>
@@ -189,17 +213,16 @@ export const Nav = () => {
         )}
       </AnimatePresence>
 
-      {/* ── Mobile menu ── */}
+      {/* ── Mobile full-screen menu ── */}
       <AnimatePresence>
         {open && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.22 }}
             className="fixed inset-0 z-[70] bg-brand-blue-deep text-background flex flex-col overflow-hidden"
           >
-            {/* Decorative SVG line art — matches desktop hover feel */}
             <svg
               aria-hidden
               className="absolute inset-0 w-full h-full text-brand-gold/10 pointer-events-none"
@@ -216,7 +239,6 @@ export const Nav = () => {
               </g>
             </svg>
 
-            {/* Header */}
             <div className="relative flex items-center justify-between px-6 pt-6 pb-4 shrink-0">
               <Logo invert />
               <button
@@ -228,29 +250,24 @@ export const Nav = () => {
               </button>
             </div>
 
-            {/* Gold divider */}
             <div className="relative mx-6 h-px bg-brand-gold/20 shrink-0" />
 
-            {/* Nav links */}
-            <nav className="relative flex-1 flex flex-col justify-center px-6 py-4 overflow-hidden">
+            <nav
+              aria-label="Mobile navigation"
+              className="relative flex-1 flex flex-col justify-center px-6 py-4 overflow-hidden"
+            >
               {links.map((l, i) => (
                 <motion.div
                   key={l.label}
                   initial={{ opacity: 0, x: -24 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -16 }}
-                  transition={{ delay: 0.06 + i * 0.07, duration: 0.4, ease: [0.65, 0, 0.35, 1] }}
+                  transition={{ delay: 0.06 + i * 0.07, duration: 0.38, ease: [0.65, 0, 0.35, 1] }}
                   className="border-b border-background/10 last:border-0"
                 >
-                  <Link
-                    to={l.to}
-                    className="group flex items-start justify-between py-4 gap-4"
-                  >
-                    {/* Left: number + title */}
+                  <Link to={l.to} className="group flex items-start justify-between py-4 gap-4">
                     <div className="flex items-baseline gap-3 min-w-0">
-                      <span className="mono text-brand-gold/60 text-[0.6rem] shrink-0 mt-1">
-                        0{i + 1}
-                      </span>
+                      <span className="mono text-brand-gold/60 text-[0.6rem] shrink-0 mt-1">0{i + 1}</span>
                       <div className="min-w-0">
                         <span className="display-serif italic text-4xl text-background group-hover:text-brand-gold transition-colors duration-200 leading-none block">
                           {l.label}
@@ -260,18 +277,16 @@ export const Nav = () => {
                         </span>
                       </div>
                     </div>
-                    {/* Right: arrow */}
                     <ArrowUpRight className="h-5 w-5 text-background/20 group-hover:text-brand-gold transition-colors shrink-0 mt-1" />
                   </Link>
                 </motion.div>
               ))}
             </nav>
 
-            {/* Footer strip */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.45, duration: 0.4 }}
+              transition={{ delay: 0.44, duration: 0.38 }}
               className="relative shrink-0 border-t border-background/10 px-6 py-5 flex items-center justify-between gap-4"
             >
               <div className="flex items-center gap-2">
@@ -281,10 +296,9 @@ export const Nav = () => {
                 </span>
                 <span className="mono text-background/50 text-[0.6rem]">Available for projects</span>
               </div>
-
               <div className="flex items-center gap-3">
                 <a
-                  href="mailto:gilevo.co@gmail.com"
+                  href="mailto:hello@gilevo.co.uk"
                   aria-label="Email"
                   className="h-8 w-8 grid place-items-center rounded-full border border-background/15 text-background/50 hover:border-brand-gold hover:text-brand-gold transition-colors"
                 >

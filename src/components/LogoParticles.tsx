@@ -34,7 +34,6 @@ export const LogoParticles = ({ className = "" }: { className?: string }) => {
       const w = wrap.clientWidth;
       const h = wrap.clientHeight;
 
-      // ✅ FIX: guard against zero dimensions (element hidden / not yet laid out)
       if (w === 0 || h === 0) return;
 
       canvas.width = w * dpr;
