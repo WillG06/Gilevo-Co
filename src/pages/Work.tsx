@@ -72,7 +72,7 @@ const projects: Project[] = [
     id: "PaneAndVino",//id: "grand-central-kitchen",
     name: "Pane & Vino",//name: "Grand Central Kitchen",
     category: "Hospitality / Restaurant",
-    liveUrl: "www.panevino.uk",
+    liveUrl: "https://panevino.uk",
     desc: "A refined restaurant site built for storytelling, menus, and table bookings — designed to feel as good as the food.",
     frames: [
       { src: pvHome, label: "home" },
