@@ -32,21 +32,12 @@ export const Hero = () => {
       </div>
 
       {/* Text content */}
-      <div className="relative z-[2] mx-auto max-w-[1440px] px-6 lg:px-10 pt-40 pb-32 min-h-[100svh] flex flex-col justify-center">
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-          className="mono text-blue mb-10"
-        >
-          / Gilevo &amp; Co. — Est. Birmingham
-        </motion.p>
-
+      <div className="relative z-[2] mx-auto max-w-[1440px] px-6 lg:px-10 pt-24 lg:pt-40 pb-16 lg:pb-32 min-h-[100svh] flex flex-col items-center text-center lg:items-start lg:text-left justify-center">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, delay: 0.3, ease: [0.65, 0, 0.35, 1] }}
-          className="brush-script text-blue-deep text-[clamp(5rem,18vw,18rem)] leading-[0.9]"
+          className="brush-script text-blue-deep text-[clamp(5rem,18vw,18rem)] leading-[0.9] mt-8 mb-4 lg:mt-0 lg:mb-0"
         >
           Gilevo<span className="text-brand-gold">&amp;</span>Co.
         </motion.h1>
@@ -65,7 +56,7 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.7 }}
-          className="mt-12 max-w-xl text-base md:text-lg text-ink/70 leading-relaxed"
+          className="mt-8 lg:mt-12 max-w-xl text-base md:text-lg text-ink/70 leading-relaxed"
         >
           Web design &amp; development from Birmingham, UK.
           Bespoke websites engineered for performance and the senses.
@@ -75,28 +66,21 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.35, duration: 0.7 }}
-          className="mt-10 flex flex-wrap items-center gap-4"
+          className="mt-8 lg:mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-4"
         >
-          <Link to="/work" className="ink-underline group inline-flex items-center gap-2 text-blue-deep">
+          <Link to="/work" className="order-2 lg:order-1 ink-underline group inline-flex items-center gap-2 text-blue-deep">
             View Work <span className="transition-transform group-hover:translate-x-1">→</span>
           </Link>
-          <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-deep text-background font-medium hover:bg-blue transition-colors">
+          <Link to="/contact" className="order-1 lg:order-2 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-deep text-background font-medium hover:bg-blue transition-colors">
             Get in Touch →
           </Link>
         </motion.div>
       </div>
 
-      <div className="absolute bottom-8 left-6 lg:left-10 flex items-center gap-3 mono text-blue/70 z-[2]">
-        <span className="rotate-180" style={{ writingMode: "vertical-rl" }}>Scroll to explore</span>
+      {/* Scroll prompt — bottom-left of the page, horizontal text */}
+      <div className="absolute bottom-8 left-6 lg:left-10 flex items-center gap-2 mono text-blue/70 z-[2]">
+        <span>Scroll to explore</span>
         <ArrowDown className="h-4 w-4 animate-scroll-arrow text-blue-deep" />
-      </div>
-
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 inline-flex items-center gap-2.5 glass-light rounded-full px-4 py-2 z-20">
-        <span className="relative inline-flex h-2 w-2">
-          <span className="absolute inset-0 rounded-full bg-gold animate-pulse-dot" />
-          <span className="relative h-2 w-2 rounded-full bg-gold" />
-        </span>
-        <span className="mono text-ink/80">Available for new projects</span>
       </div>
     </section>
   );

@@ -139,6 +139,19 @@ export const Nav = () => {
             </button>
           </div>
         </div>
+
+        {/*
+          "/ Gilevo & Co. — Est. Birmingham" tag.
+          Its own row directly under the logo/nav/CTA row, so it's always
+          centred and locked to the header — no separate positioning needed
+          in the Hero itself. whitespace-nowrap keeps it on one line at
+          every breakpoint.
+        */}
+        <div className="mt-5 md:mt-6 flex justify-center px-6">
+          <p className="mono text-blue text-[0.6rem] md:text-xs text-center whitespace-nowrap">
+            / Gilevo &amp; Co. — Est. Birmingham
+          </p>
+        </div>
       </motion.header>
 
       {/* ── Desktop hover mega-panel ── */}
