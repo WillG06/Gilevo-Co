@@ -1,9 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
-import { lazy, Suspense } from "react";
-
-const Armillary = lazy(() => import("@/components/Armillary").then((m) => ({ default: m.Armillary })));
+import heroImage from "@/assets/heroNEW.webp";
 
 /**
  * Hero — brand wordmark + animated decorative line-art.
@@ -15,29 +13,30 @@ export const Hero = () => {
   return (
     <section id="hero" className="relative min-h-[100svh] w-full overflow-hidden">
       {/* Soft brand colour wash */}
-      <div aria-hidden className="absolute inset-0 -z-0 pointer-events-none">
+      <div aria-hidden className="absolute inset-0 -z-0 pointer-events-none lg:hidden">
         <div className="absolute -top-32 -left-32 h-[60vh] w-[60vh] rounded-full blur-3xl opacity-40"
              style={{ background: "radial-gradient(circle, hsl(var(--brand-blue)/0.35), transparent 70%)" }} />
         <div className="absolute bottom-0 right-0 h-[55vh] w-[55vh] rounded-full blur-3xl opacity-40"
              style={{ background: "radial-gradient(circle, hsl(var(--brand-gold)/0.30), transparent 70%)" }} />
       </div>
 
-      <HeroLineArt />
-
-      {/* 3D Armillary sphere */}
-      <div className="hidden min-[1250px]:block absolute top-2/3 right-[0vw] -translate-y-[50%] w-[40vw] max-w-[580px] min-w-[340px] h-[62vh] max-h-[640px] min-h-[380px] z-0 pointer-events-auto opacity-90">
-        <Suspense fallback={null}>
-          <Armillary />
-        </Suspense>
+      <div className="absolute inset-0 lg:hidden" aria-hidden="true">
+        <HeroLineArt />
       </div>
 
-      {/* Text content */}
-      <div className="relative z-[2] mx-auto max-w-[1440px] px-6 lg:px-10 pt-24 lg:pt-40 pb-16 lg:pb-32 min-h-[100svh] flex flex-col items-center text-center lg:items-start lg:text-left justify-center">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 hidden bg-cover bg-center bg-no-repeat lg:block"
+        style={{ backgroundImage: `url("${heroImage}")` }}
+      />
+
+      {/* Existing mobile hero */}
+      <div className="relative z-[2] mx-auto flex min-h-[100svh] max-w-[1440px] flex-col items-center justify-center px-6 pt-24 pb-16 text-center lg:hidden">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, delay: 0.3, ease: [0.65, 0, 0.35, 1] }}
-          className="brush-script text-blue-deep text-[clamp(5rem,18vw,18rem)] leading-[0.9] mt-8 mb-4 lg:mt-0 lg:mb-0"
+          className="brush-script text-blue-deep text-[clamp(5rem,18vw,18rem)] leading-[0.9] mt-8 mb-4"
         >
           Gilevo<span className="text-brand-gold">&amp;</span>Co.
         </motion.h1>
@@ -77,10 +76,83 @@ export const Hero = () => {
         </motion.div>
       </div>
 
-      {/* Scroll prompt — bottom-left of the page, horizontal text */}
-      <div className="absolute bottom-8 left-6 lg:left-10 flex items-center gap-2 mono text-blue/70 z-[2]">
+      {/* Desktop hero */}
+      <div className="absolute inset-0 z-[2] hidden lg:flex lg:items-center lg:justify-center lg:px-10">
+        <div className="w-full max-w-[1680px] pl-[12%] pr-[2%]">
+          <div className="w-full">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+              className="mb-6 flex items-center gap-5"
+            >
+              <span className="mono text-[0.72rem] font-medium tracking-[0.24em] text-blue-deep">
+                Gilevo &amp; Co.
+              </span>
+              <span
+                aria-hidden="true"
+                className="h-px w-24"
+                style={{ backgroundColor: "hsl(var(--brand-blue-deep) / 0.6)" }}
+              />
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.25, ease: [0.65, 0, 0.35, 1] }}
+              className="max-w-none font-sans text-[clamp(3.75rem,7.2vw,8rem)] font-medium leading-[0.98] tracking-[-0.055em] text-[#1d2933]"
+            >
+              Bespoke websites
+              <br />
+              meant to be seen.
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.55 }}
+              className="mt-6 font-sans text-lg text-[#4c5158] lg:text-xl"
+            >
+              No need to overcomplicate marketing.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.7 }}
+              className="mt-10 flex flex-wrap items-center gap-6"
+            >
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-4 rounded-full bg-blue-deep px-8 py-4 font-sans text-base font-medium text-background transition-colors hover:bg-blue"
+              >
+                Get in touch
+                <span aria-hidden="true" className="text-xl leading-none">→</span>
+              </Link>
+              <Link
+                to="/work"
+                className="ink-underline group inline-flex items-center gap-2 font-sans text-base font-medium text-blue-deep"
+              >
+                View Work
+                <span className="transition-transform group-hover:translate-x-1">→</span>
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      {/* Scroll prompt */}
+      <div className="absolute bottom-8 left-6 z-[2] flex items-center gap-2 mono text-blue/70 lg:hidden">
         <span>Scroll to explore</span>
         <ArrowDown className="h-4 w-4 animate-scroll-arrow text-blue-deep" />
+      </div>
+
+      <div className="absolute bottom-10 left-[4.5%] right-[4.5%] z-[2] hidden items-center gap-6 mono text-[0.6rem] tracking-[0.12em] text-blue-deep/75 lg:flex">
+        <span aria-hidden="true" className="text-lg">→</span>
+        <span>Birmingham, UK</span>
+        <span aria-hidden="true" className="h-5 w-px bg-blue-deep/30" />
+        <span>Scroll to explore</span>
+        <ArrowDown className="absolute right-0 h-5 w-5 animate-scroll-arrow text-blue-deep" />
       </div>
     </section>
   );

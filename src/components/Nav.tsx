@@ -124,7 +124,7 @@ export const Nav = () => {
           <div className="flex items-center gap-3">
             <Link
               to="/contact"
-              className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 text-[0.8125rem] font-medium rounded-full bg-brand-blue-deep text-background hover:bg-brand-gold hover:text-brand-blue-deep transition-colors group whitespace-nowrap"
+              className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 text-[0.8125rem] font-medium rounded-full border border-white bg-brand-blue-deep text-background hover:bg-brand-gold hover:text-brand-blue-deep transition-colors group whitespace-nowrap"
             >
               Start a project
               <span className="transition-transform group-hover:translate-x-0.5 leading-none">→</span>
@@ -311,7 +311,7 @@ export const Nav = () => {
               </div>
               <div className="flex items-center gap-3">
                 <a
-                  href="mailto:hello@gilevo.co.uk"
+                  href="mailto:gilevo.co@gmail.com"
                   aria-label="Email"
                   className="h-8 w-8 grid place-items-center rounded-full border border-background/15 text-background/50 hover:border-brand-gold hover:text-brand-gold transition-colors"
                 >

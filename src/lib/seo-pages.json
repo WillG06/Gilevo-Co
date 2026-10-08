@@ -1,0 +1,74 @@
+{
+  "/": {
+    "title": "Birmingham Web Design & Development | Gilevo & Co.",
+    "description": "Independent Birmingham web design and development studio building bespoke websites, online shops and brand-led digital experiences for businesses across the UK.",
+    "type": "WebPage",
+    "heading": "Bespoke websites, made to be seen.",
+    "intro": "Gilevo & Co. is an independent web design and development studio in Birmingham, creating custom websites and online shops for ambitious businesses across the UK. Every project combines considered design, responsive development and a clear focus on your goals.",
+    "highlights": [
+      "Bespoke website design and development",
+      "E-commerce and online shop development",
+      "Brand identity and technical SEO"
+    ]
+  },
+  "/services": {
+    "title": "Web Design & Development Services | Gilevo & Co.",
+    "description": "Explore bespoke web design, website development, e-commerce, branding and technical SEO from an independent Birmingham studio serving businesses across the UK.",
+    "type": "WebPage",
+    "heading": "Web design & development services.",
+    "intro": "From planning and visual design to development and launch, Gilevo & Co. builds bespoke websites around your business, customers and objectives. Based in Birmingham and available to work with businesses across the UK.",
+    "highlights": [
+      "Bespoke web design and responsive website development",
+      "E-commerce, online shops and payment integrations",
+      "Brand identity, technical SEO and performance improvements"
+    ]
+  },
+  "/work": {
+    "title": "Web Design Portfolio & Client Projects | Gilevo & Co.",
+    "description": "Explore bespoke websites designed and developed by Gilevo & Co. for hospitality, restaurants, independent retailers and property businesses.",
+    "type": "CollectionPage",
+    "heading": "Bespoke websites, designed and built for real businesses",
+    "intro": "Browse website design and development projects created for independent hospitality, coffee, restaurant and property businesses. Each project pairs a distinctive visual identity with practical, responsive pages.",
+    "highlights": [
+      "The Coffee Bar Collective — hospitality and specialty coffee",
+      "Pane & Vino — restaurant and dining",
+      "Porter & Bridge — property and investment"
+    ]
+  },
+  "/about": {
+    "title": "About Gilevo & Co. | Birmingham Web Designer & Developer",
+    "description": "Meet Will Giles, an independent Birmingham web designer and developer creating bespoke, high-performance websites for ambitious businesses.",
+    "type": "AboutPage",
+    "heading": "An independent Birmingham web designer & developer",
+    "intro": "Will Giles is the designer and developer behind Gilevo & Co., an independent Birmingham web studio. He works directly with businesses to plan, design and build bespoke websites, with a careful focus on craft, performance and the people using them.",
+    "highlights": [
+      "Direct collaboration from first brief through launch",
+      "Custom design and hand-built website development",
+      "Projects for clients in Birmingham and beyond"
+    ]
+  },
+  "/pricing": {
+    "title": "Website Design & Development Pricing | Gilevo & Co.",
+    "description": "See how Gilevo & Co. prices bespoke website design and development, with clear project quotes and flexible payment options.",
+    "type": "WebPage",
+    "heading": "Clear pricing for bespoke websites",
+    "intro": "Website design and development projects are scoped around your requirements, with a clear quote before work begins. Choose a one-time project payment or ask about spreading payments, plus optional ongoing maintenance.",
+    "highlights": [
+      "A project-specific quote before you commit",
+      "Flexible payment options for website projects",
+      "Optional hosting, domain and maintenance support"
+    ]
+  },
+  "/contact": {
+    "title": "Contact a Web Designer in Birmingham | Gilevo & Co.",
+    "description": "Discuss a new website, redesign or digital project with Will Giles at Gilevo & Co., an independent web design and development studio in Birmingham.",
+    "type": "ContactPage",
+    "heading": "Talk to a Birmingham web designer",
+    "intro": "Have a website project in mind? Contact Will Giles at Gilevo & Co. to discuss web design, website development, e-commerce or a new digital project. Share a few details and get a free, no-obligation quote.",
+    "highlights": [
+      "Discuss your website goals and requirements",
+      "Get a free, no-obligation project quote",
+      "Email gilevo.co@gmail.com"
+    ]
+  }
+}

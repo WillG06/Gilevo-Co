@@ -1,0 +1,46 @@
+{
+  "url": "https://gilevo.co.uk",
+  "name": "Gilevo & Co.",
+  "logo": "gilevo-logo.png",
+  "image": "og-image.jpg",
+  "organization": {
+    "description": "Independent web design and development studio based in Birmingham, UK, building bespoke websites for businesses.",
+    "email": "gilevo.co@gmail.com",
+    "founder": {
+      "name": "Will Giles",
+      "path": "/about",
+      "sameAs": [
+        "https://www.linkedin.com/in/williamedwardgiles/",
+        "https://github.com/WillG06/"
+      ]
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Birmingham" },
+      { "@type": "AdministrativeArea", "name": "West Midlands" },
+      { "@type": "Country", "name": "United Kingdom" }
+    ],
+    "sameAs": ["https://www.instagram.com/gilevo.co/"],
+    "knowsAbout": [
+      "Web design",
+      "Website development",
+      "E-commerce development",
+      "Brand identity",
+      "Technical search engine optimization"
+    ]
+  },
+  "service": {
+    "name": "Web design and development services",
+    "serviceType": [
+      "Bespoke web design",
+      "Website development",
+      "E-commerce development",
+      "Brand identity",
+      "Technical SEO"
+    ],
+    "areaServed": [
+      { "@type": "City", "name": "Birmingham" },
+      { "@type": "AdministrativeArea", "name": "West Midlands" },
+      { "@type": "Country", "name": "United Kingdom" }
+    ]
+  }
+}

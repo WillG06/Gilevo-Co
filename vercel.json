@@ -1,5 +1,15 @@
 {
   "rewrites": [
+    { "source": "/services", "destination": "/services/index.html" },
+    { "source": "/work", "destination": "/work/index.html" },
+    { "source": "/about", "destination": "/about/index.html" },
+    { "source": "/pricing", "destination": "/pricing/index.html" },
+    { "source": "/contact", "destination": "/contact/index.html" },
+    { "source": "/services/", "destination": "/services/index.html" },
+    { "source": "/work/", "destination": "/work/index.html" },
+    { "source": "/about/", "destination": "/about/index.html" },
+    { "source": "/pricing/", "destination": "/pricing/index.html" },
+    { "source": "/contact/", "destination": "/contact/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

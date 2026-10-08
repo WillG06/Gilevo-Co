@@ -18,7 +18,7 @@ const cols = [
     external: true,
     links: [
       { label: "Instagram", to: "https://instagram.com/gilevo.co/" },
-      { label: "LinkedIn", to: "www.linkedin.com/in/williamedwardgiles/" },
+      { label: "LinkedIn", to: "https://www.linkedin.com/in/williamedwardgiles/" },
       { label: "GitHub", to: "https://github.com/WillG06/" },
     ],
   },
@@ -61,7 +61,7 @@ export const Footer = () => (
         <p className="mono text-faint mb-4">/ Studio</p>
         <p className="display-serif text-2xl text-ink">Birmingham, UK</p>
         <p className="mono text-faint mt-2">52.4862° N, 1.8904° W</p>
-        <a href="mailto:hello@gilevoandco.com" className="mt-6 inline-block ink-underline text-ink">
+        <a href="mailto:gilevo.co@gmail.com" className="mt-6 inline-block ink-underline text-ink">
           gilevo.co@gmail.com
         </a>
       </div>

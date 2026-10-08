@@ -18,9 +18,9 @@ const Services = () => {
     <>
       <PageHero
         eyebrow="Services"
-        titleSerif="What I"
-        titleSans="do"
-        intro="From a one-page launch to a fully bespoke web ecosystem, every project is built end-to-end with the same obsessive attention to detail."
+        titleSerif="Web design"
+        titleSans="& development"
+        intro="Bespoke web design and website development for businesses in Birmingham and across the UK. From a new business website or redesign to e-commerce, brand identity and technical SEO, every project is designed and built around your goals."
         variant="grid"
       />
 

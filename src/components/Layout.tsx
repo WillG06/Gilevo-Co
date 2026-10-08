@@ -7,6 +7,7 @@ import { CustomCursor } from "./CustomCursor";
 import { SmoothScroll } from "./SmoothScroll";
 import { AmbientBackdrop } from "./AmbientBackdrop";
 import { SplashScreen } from "./SplashScreen";
+import { RouteSeo } from "./RouteSeo";
 
 export const Layout = () => {
   const { pathname } = useLocation();
@@ -23,6 +24,7 @@ export const Layout = () => {
       <CustomCursor />
       <AmbientBackdrop />
       <div className="grain" />
+      <RouteSeo />
       <Nav />
       <AnimatePresence mode="wait">
         <motion.main

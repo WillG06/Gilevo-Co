@@ -77,6 +77,63 @@
 }
 
 @layer components {
+  .seo-fallback {
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: 8rem 1.5rem 4rem;
+    color: hsl(var(--foreground));
+  }
+  .seo-fallback h1 {
+    margin-top: 1.5rem;
+    color: hsl(var(--brand-blue-deep));
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .seo-fallback > p:not(.seo-fallback__eyebrow) {
+    margin-top: 1.5rem;
+    max-width: 42rem;
+    color: hsl(var(--foreground) / 0.75);
+    font-size: 1.125rem;
+    line-height: 1.75;
+  }
+  .seo-fallback__eyebrow,
+  .seo-fallback nav {
+    color: hsl(var(--brand-blue));
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .seo-fallback ul {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    padding-left: 1.25rem;
+    line-height: 1.6;
+    list-style: disc;
+  }
+  .seo-fallback li::marker {
+    color: hsl(var(--brand-gold));
+  }
+  .seo-fallback a {
+    color: hsl(var(--brand-blue-deep));
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .seo-fallback nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+    margin-top: 3rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid hsl(var(--hairline));
+  }
+  .seo-fallback nav a {
+    font-size: inherit;
+  }
+
   .display-serif {
     font-family: 'Fraunces', 'Cormorant Garamond', Georgia, serif;
     font-style: italic;
