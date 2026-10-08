@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import gcGlyph from "@/assets/gc-glyph-silhouette.png";
+import gcGlyph from "@/assets/optimized/gc-glyph-silhouette.webp";
 
 interface Particle {
   x: number;

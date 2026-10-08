@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import gcLogo from "@/assets/gc-logo.png";
+import gcLogo from "@/assets/optimized/gc-logo.webp";
 
 /**
  * SplashScreen — runs on initial app mount (and on hard refresh).

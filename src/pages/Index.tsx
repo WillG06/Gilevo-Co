@@ -157,7 +157,7 @@ const PreviewAbout = () => {
   const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
 
   return (
-    <div ref={ref} className="relative min-h-[100svh] py-24 lg:py-32 overflow-hidden border-t border-hairline bg-background">
+    <div ref={ref} className="relative min-h-[125svh] py-24 lg:py-32 overflow-hidden border-t border-hairline bg-background">
 
       <div className="hidden lg:block absolute -top-16 right-[20%] w-[62vw] max-w-[900px] h-[78vh] max-h-[820px] pointer-events-none z-[1]">
         <Suspense fallback={null}>

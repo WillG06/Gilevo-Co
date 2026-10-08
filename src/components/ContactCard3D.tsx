@@ -1,7 +1,7 @@
 import { motion, useMotionValue, useTransform, useSpring, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
-import gcLogo from "@/assets/gc-logo.png";
-import cardFront from "@/assets/contact-card-front.png";
+import gcLogo from "@/assets/optimized/gc-logo.webp";
+import cardFront from "@/assets/optimized/contact-card-front.webp";
 
 /**
  * 3D interactive contact card.

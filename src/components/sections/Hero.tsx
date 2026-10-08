@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroImage from "@/assets/heroNEW.webp";
+import heroImage from "@/assets/optimized/heroNEW.webp";
 
 /**
  * Hero — brand wordmark + animated decorative line-art.

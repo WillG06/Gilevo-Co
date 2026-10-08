@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import gcLogo from "@/assets/gc-logo.png";
+import gcLogo from "@/assets/optimized/gc-logo.webp";
 
 interface Props {
   className?: string;

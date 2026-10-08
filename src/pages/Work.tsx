@@ -8,39 +8,39 @@ import { Link } from "react-router-dom";
 import { PageHero } from "@/components/PageHero";
 import { LineArt } from "@/components/LineArt";
 
-import coffeeHome from "@/assets/CoffeeCoHome.png";
-import coffeeMenu from "@/assets/CoffeeCoMenu.png";
-import coffeeVisit from "@/assets/CoffeeCoVisit.png";
-import coffeeGallery from "@/assets/CoffeeCoGallery.png";
+import coffeeHome from "@/assets/optimized/CoffeeCoHome.webp";
+import coffeeMenu from "@/assets/optimized/CoffeeCoMenu.webp";
+import coffeeVisit from "@/assets/optimized/CoffeeCoVisit.webp";
+import coffeeGallery from "@/assets/optimized/CoffeeCoGallery.webp";
 
 //import cherryHome from "@/assets/CherryRedHome.png";
 //import cherryMenu from "@/assets/CherryRedMenu.png";
 //import cherryEvents from "@/assets/CherryRedEvents.png";
 //import cherryRooms from "@/assets/CherryRedRooms.png";
-import bsHome from "@/assets/BS_Home.png";
-import bsTenancies from "@/assets/BS_Tenancies.png";
-import bsAbout from "@/assets/BS_About.png";
-import bsContact from "@/assets/BS_Contact.png";
+import bsHome from "@/assets/optimized/BS_Home.webp";
+import bsTenancies from "@/assets/optimized/BS_Tenancies.webp";
+import bsAbout from "@/assets/optimized/BS_About.webp";
+import bsContact from "@/assets/optimized/BS_Contact.webp";
 
 
 //import foxHome from "@/assets/FoxHome.png";
 //import foxMenu from "@/assets/FoxMenu.png";
 //import foxGallery from "@/assets/FoxGallery.png";
 //import foxContact from "@/assets/FoxContact.png";
-import bcHome from "@/assets/BC_Home.png";
-import bcMenu from "@/assets/BC_Menu.png";
-import bcVisit from "@/assets/BC_Visit.png";
-import bcStory from "@/assets/BC_Story.png";
+import bcHome from "@/assets/optimized/BC_Home.webp";
+import bcMenu from "@/assets/optimized/BC_Menu.webp";
+import bcVisit from "@/assets/optimized/BC_Visit.webp";
+import bcStory from "@/assets/optimized/BC_Story.webp";
 
 
 // import GCKhome from "@/assets/GCKHome.png";
 // import GCKgallery from "@/assets/GCKGallery.png";
 // import GCKstory from "@/assets/GCKStory.png";
 // import GCKvisit from "@/assets/GCKVisit.png";
-import pvHome from "@/assets/PV_Home.png";
-import pvMenu from "@/assets/PV_Menu.png";
-import pvEvents from "@/assets/PV_Events.png";
-import pvContact from "@/assets/PV_Contact.png";
+import pvHome from "@/assets/optimized/PV_Home.webp";
+import pvMenu from "@/assets/optimized/PV_Menu.webp";
+import pvEvents from "@/assets/optimized/PV_Events.webp";
+import pvContact from "@/assets/optimized/PV_Contact.webp";
 
 type Frame = { src: string; label: string };
 type Project = {
