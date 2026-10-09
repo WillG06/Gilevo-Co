@@ -15,7 +15,7 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { Resend } from "resend";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
-import { contactSubmissionSchema } from "../src/lib/contact-schema";
+import { contactSubmissionSchema } from "../src/lib/contact-schema.js";
 
 const jsonHeaders = { "Cache-Control": "no-store" };
 
