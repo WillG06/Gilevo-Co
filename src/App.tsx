@@ -11,6 +11,9 @@ import About from "./pages/About.tsx";
 import Pricing from "./pages/Pricing.tsx";
 import Contact from "./pages/Contact.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import { CookieConsent } from "@/components/CookieConsent.tsx";
+import { CookiePolicy, PrivacyPolicy } from "@/pages/Legal.tsx";
+// import { Analytics } from "./components/Analytics.tsx";
 
 const queryClient = new QueryClient();
 
@@ -28,9 +31,13 @@ const App = () => (
             <Route path="/about" element={<About />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/cookies" element={<CookiePolicy />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
+        <CookieConsent />
+        {/* <Analytics /> */}
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

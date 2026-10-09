@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Logo } from "./Logo";
+import { openCookieSettings } from "@/lib/cookie-consent";
 
 const cols = [
   {
@@ -67,8 +68,25 @@ export const Footer = () => (
       </div>
     </div>
     <div className="border-t border-hairline">
-      <div className="mx-auto max-w-[1440px] px-6 lg:px-10 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 mono text-faint">
+      <div className="mx-auto max-w-[1440px] px-6 lg:px-10 py-6 flex flex-col lg:flex-row items-center justify-between gap-4 mono text-faint">
         <p>© 2026 Gilevo &amp; Co. - All rights reserved.</p>
+
+        <nav aria-label="Legal" className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+          <Link to="/privacy" className="hover:text-brand-blue transition-colors">
+            Privacy Policy
+          </Link>
+          <Link to="/cookies" className="hover:text-brand-blue transition-colors">
+            Cookie Policy
+          </Link>
+          <button
+            type="button"
+            onClick={openCookieSettings}
+            className="mono hover:text-brand-blue transition-colors"
+          >
+            Cookie Settings
+          </button>
+        </nav>
+
         <p>Designed &amp; Built by Gilevo &amp; Co.</p>
       </div>
     </div>

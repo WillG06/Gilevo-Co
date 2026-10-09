@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { Check, Copy, Instagram, Github, Mail, MapPin, AlertTriangle, ChevronDown, Linkedin } from "lucide-react";
 import { toast } from "sonner";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { PageHero } from "@/components/PageHero";
 import { LineArt } from "@/components/LineArt";
 import { Turnstile, type TurnstileHandle } from "@/components/Turnstile";
@@ -215,6 +215,16 @@ const Contact = () => {
 
                   <div className="pt-2 space-y-4">
                     <Turnstile ref={turnstileRef} onToken={setTurnstileToken} />
+
+                    <p className="max-w-md text-xs leading-relaxed text-faint">
+                      Your details are only used to reply to your enquiry. This form is
+                      protected by Cloudflare Turnstile. See my{" "}
+                      <Link to="/privacy" className="ink-underline text-blue-deep">
+                        Privacy Policy
+                      </Link>
+                      .
+                    </p>
+
                     <button
                       type="submit"
                       disabled={sending}
