@@ -1,17 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
-import emailjs from "@emailjs/browser";
 import { Check, Copy, Instagram, Github, Mail, MapPin, AlertTriangle, ChevronDown, Linkedin } from "lucide-react";
 import { toast } from "sonner";
 import { useLocation } from "react-router-dom";
-import { z } from "zod";
 import { PageHero } from "@/components/PageHero";
 import { LineArt } from "@/components/LineArt";
+import { contactSchema, contactSubmissionSchema } from "@/lib/contact-schema";
 import portrait from "@/assets/portrait-will.jpeg";
 
-const EMAILJS_SERVICE_ID = "service_646el04";
-const EMAILJS_TEMPLATE_ID = "service_646el04";
-const EMAILJS_PUBLIC_KEY = "Ce9sXtrrEkoTPrdBz";
 const CONTACT_EMAIL = "gilevo.co@gmail.com";
 
 const socials = [
@@ -20,15 +16,7 @@ const socials = [
   { Icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/williamedwardgiles/" },
 ];
 
-const contactSchema = z.object({
-  user_name: z.string().trim().min(2, "Please enter your name").max(100, "Name is too long"),
-  user_email: z.string().trim().email("That doesn't look like a valid email").max(255),
-  project_type: z.string().min(1, "Pick a project type"),
-  plan_interest: z.string().min(1, "Pick a plan"),
-  message: z.string().trim().min(10, "Tell me a little more (10+ chars)").max(2000, "Message is too long"),
-});
-
-type FieldErrors = Partial<Record<keyof z.infer<typeof contactSchema>, string>>;
+type FieldErrors = Partial<Record<keyof typeof contactSchema.shape, string>>;
 
 const Contact = () => {
   const location = useLocation();
@@ -37,7 +25,6 @@ const Contact = () => {
   const [sending, setSending] = useState(false);
   const [errors, setErrors] = useState<FieldErrors>({});
 
-  // Hidden native inputs for EmailJS form serialisation
   const [projectType, setProjectType] = useState("New Website");
   const [planInterest, setPlanInterest] = useState(initialPlan);
 
@@ -65,8 +52,8 @@ const Contact = () => {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    const data = Object.fromEntries(new FormData(form));
-    const parsed = contactSchema.safeParse(data);
+    const formData = new FormData(form);
+    const parsed = contactSubmissionSchema.safeParse(Object.fromEntries(formData));
     if (!parsed.success) {
       const fe: FieldErrors = {};
       for (const issue of parsed.error.issues) {
@@ -80,15 +67,18 @@ const Contact = () => {
     setErrors({});
     setSending(true);
     try {
-      if (EMAILJS_PUBLIC_KEY.startsWith("YOUR_")) {
-        await new Promise((r) => setTimeout(r, 800));
-      } else {
-        await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form, { publicKey: EMAILJS_PUBLIC_KEY });
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(parsed.data),
+      });
+      if (!response.ok) {
+        throw new Error("Contact request failed");
       }
       setSent(true);
       form.reset();
     } catch {
-      toast.error("Something went wrong. Please email me directly.");
+      toast.error("Couldn't send your message. Please try again or email me directly.");
     } finally {
       setSending(false);
     }
@@ -152,29 +142,42 @@ const Contact = () => {
                 </motion.div>
               ) : (
                 <form onSubmit={onSubmit} noValidate className="space-y-10">
-                  {/* Hidden inputs so EmailJS picks up the custom select values */}
                   <input type="hidden" name="project_type" value={projectType} />
                   <input type="hidden" name="plan_interest" value={planInterest} />
+                  <div aria-hidden="true" className="absolute -left-[10000px]">
+                    <label htmlFor="website">Leave this field empty</label>
+                    <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+                  </div>
 
                   <div className="grid sm:grid-cols-2 gap-10">
                     <OpenField label="Name" name="user_name" error={errors.user_name}
-                      onChange={() => errors.user_name && setErrors({ ...errors, user_name: undefined })} />
+                      onChange={() => {
+                        if (errors.user_name) setErrors({ ...errors, user_name: undefined });
+                      }} />
                     <OpenField label="Email" name="user_email" type="email" error={errors.user_email}
-                      onChange={() => errors.user_email && setErrors({ ...errors, user_email: undefined })} />
+                      onChange={() => {
+                        if (errors.user_email) setErrors({ ...errors, user_email: undefined });
+                      }} />
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-10">
                     <CustomSelect
                       label="Project Type"
                       value={projectType}
-                      onChange={(v) => { setProjectType(v); errors.project_type && setErrors({ ...errors, project_type: undefined }); }}
+                      onChange={(v) => {
+                        setProjectType(v);
+                        if (errors.project_type) setErrors({ ...errors, project_type: undefined });
+                      }}
                       options={["New Website", "Redesign", "Landing Page", "Maintenance / Updates", "Other"]}
                       error={errors.project_type}
                     />
                     <CustomSelect
                       label="Plan Interest"
                       value={planInterest}
-                      onChange={(v) => { setPlanInterest(v); errors.plan_interest && setErrors({ ...errors, plan_interest: undefined }); }}
+                      onChange={(v) => {
+                        setPlanInterest(v);
+                        if (errors.plan_interest) setErrors({ ...errors, plan_interest: undefined });
+                      }}
                       options={["One-Time Payment", "Flexible Plan", "Not Sure Yet", "Just Browsing"]}
                       error={errors.plan_interest}
                     />
