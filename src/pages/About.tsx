@@ -47,7 +47,7 @@ const About = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/70 via-transparent to-transparent" />
                 <div className="absolute inset-0 grid place-items-end p-6">
                   <div>
-                    <p className="signature-script text-5xl text-background leading-none">WGiles</p>
+                    
                     <p className="mono text-brand-gold mt-2">Founder · Designer · Developer</p>
                   </div>
                 </div>

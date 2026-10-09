@@ -241,7 +241,7 @@ const Contact = () => {
                       className="absolute inset-0 w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-brand-blue-deep/85 via-transparent to-transparent" />
                     <div className="absolute bottom-0 inset-x-0 p-6">
-                      <p className="signature-script text-4xl text-background leading-none">WGiles</p>
+                      
                       <p className="mono text-brand-gold mt-1">/ Founder · Birmingham</p>
                     </div>
                     <span className="absolute top-4 right-4 mono text-[0.55rem] glass-blue rounded-full px-3 py-1 text-background">
