@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Nav } from "./Nav";
 import { Footer } from "./Footer";
@@ -12,6 +12,10 @@ import { RouteSeo } from "./RouteSeo";
 export const Layout = () => {
   const { pathname } = useLocation();
   const [splashDone, setSplashDone] = useState(false);
+
+  useLayoutEffect(() => {
+    document.documentElement.classList.remove("js");
+  }, []);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
