@@ -5,10 +5,12 @@ import { toast } from "sonner";
 import { useLocation } from "react-router-dom";
 import { PageHero } from "@/components/PageHero";
 import { LineArt } from "@/components/LineArt";
+import { Turnstile, type TurnstileHandle } from "@/components/Turnstile";
 import { contactSchema, contactSubmissionSchema } from "@/lib/contact-schema";
 import portrait from "@/assets/portrait-will.jpeg";
 
 const CONTACT_EMAIL = "gilevo.co@gmail.com";
+const TURNSTILE_ENABLED = Boolean(import.meta.env.VITE_TURNSTILE_SITE_KEY);
 
 const socials = [
   { Icon: Instagram, label: "Instagram", href: "https://instagram.com/gilevo.co" },
@@ -24,6 +26,8 @@ const Contact = () => {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [errors, setErrors] = useState<FieldErrors>({});
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstileRef = useRef<TurnstileHandle>(null);
 
   const [projectType, setProjectType] = useState("New Website");
   const [planInterest, setPlanInterest] = useState(initialPlan);
@@ -64,21 +68,29 @@ const Contact = () => {
       toast.error("Please check the highlighted fields");
       return;
     }
+    if (TURNSTILE_ENABLED && !turnstileToken) {
+      toast.error("Please wait a moment for the security check to finish");
+      return;
+    }
     setErrors({});
     setSending(true);
+    let failure = "Couldn't send your message. Please try again or email me directly.";
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(parsed.data),
+        body: JSON.stringify({ ...parsed.data, turnstileToken }),
       });
       if (!response.ok) {
+        const data = await response.json().catch(() => null);
+        if (data && typeof data.error === "string") failure = data.error;
         throw new Error("Contact request failed");
       }
       setSent(true);
       form.reset();
     } catch {
-      toast.error("Couldn't send your message. Please try again or email me directly.");
+      toast.error(failure);
+      turnstileRef.current?.reset(); // Turnstile tokens are single use
     } finally {
       setSending(false);
     }
@@ -201,7 +213,8 @@ const Contact = () => {
                     )}
                   </div>
 
-                  <div className="pt-2">
+                  <div className="pt-2 space-y-4">
+                    <Turnstile ref={turnstileRef} onToken={setTurnstileToken} />
                     <button
                       type="submit"
                       disabled={sending}

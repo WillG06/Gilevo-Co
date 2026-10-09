@@ -27,10 +27,16 @@ export const SplashScreen = ({ onDone }: { onDone: () => void }) => {
     <AnimatePresence>
       <motion.div
         key="splash"
-        className="fixed inset-0 z-[9998] pointer-events-none"
+        className="fixed inset-0 z-[9998] overflow-hidden pointer-events-none"
         initial={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
+        <motion.div
+          aria-hidden="true"
+          className="absolute inset-0 bg-brand-blue-deep"
+          animate={{ opacity: halvesOut ? 0 : 1 }}
+          transition={{ duration: 0.85, ease: [0.65, 0, 0.35, 1] }}
+        />
         {/* Left half — slides in from left, then exits left.
             Width is 50% + 60px so the diagonal slant fully covers the
             centre line (no gap between halves when they meet). */}

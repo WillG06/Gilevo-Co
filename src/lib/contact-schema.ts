@@ -1,3 +1,4 @@
+// Save as: src/lib/contact-schema.ts
 import { z } from "zod";
 
 export const contactSchema = z.object({
@@ -13,5 +14,6 @@ export const contactSchema = z.object({
 });
 
 export const contactSubmissionSchema = contactSchema.extend({
-  website: z.string().max(200).optional(),
+  website: z.string().max(200).optional(), // honeypot
+  turnstileToken: z.string().max(2048).optional(), // Cloudflare Turnstile
 });
