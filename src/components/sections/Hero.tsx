@@ -57,8 +57,9 @@ export const Hero = () => {
           transition={{ delay: 1.2, duration: 0.7 }}
           className="mt-8 lg:mt-12 max-w-xl text-base md:text-lg text-ink/70 leading-relaxed"
         >
-          Web design &amp; development from Birmingham, UK.
-          Bespoke websites engineered for performance and the senses.
+          Independent web design and development from Birmingham, UK.
+          Will Giles designs and builds bespoke business websites for clients
+          across Birmingham and beyond.
         </motion.p>
 
         <motion.div

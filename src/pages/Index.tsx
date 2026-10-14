@@ -79,7 +79,7 @@ const PreviewWork = () => (
           buttery animations, considered typography, zero compromise.
         </p>
         <Link to="/work" className="mt-8 inline-flex items-center gap-2 ink-underline text-blue-deep">
-          Explore my projects <ArrowUpRight className="h-4 w-4" />
+          View Birmingham website projects <ArrowUpRight className="h-4 w-4" />
         </Link>
       </div>
       <div className="lg:col-span-7 relative h-[520px] lg:h-[600px] grid place-items-center">
@@ -143,7 +143,7 @@ const PreviewServices = () => {
           })}
         </ul>
         <Link to="/services" className="mt-10 inline-flex items-center gap-2 ink-underline text-blue-deep">
-          See all services <ArrowUpRight className="h-4 w-4" />
+          Birmingham web design, development and SEO services <ArrowUpRight className="h-4 w-4" />
         </Link>
       </div>
     </div>
@@ -180,7 +180,7 @@ const PreviewAbout = () => {
             want to be seen.
           </p>
           <Link to="/about" className="mt-8 inline-flex items-center gap-2 ink-underline text-blue-deep">
-            Read more <ArrowUpRight className="h-4 w-4" />
+            Meet Will Giles, Birmingham web developer <ArrowUpRight className="h-4 w-4" />
           </Link>
         </motion.div>
 
@@ -284,10 +284,10 @@ const CTABand = () => (
       </p>
       <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
         <Link to="/contact" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-brand-gold text-brand-blue-deep font-medium hover:bg-background transition-colors">
-          Start a project →
+          Contact a Birmingham web developer →
         </Link>
         <Link to="/pricing" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border border-background/30 hover:border-brand-gold hover:text-brand-gold transition-colors">
-          See pricing
+          View website design pricing
         </Link>
       </div>
     </div>

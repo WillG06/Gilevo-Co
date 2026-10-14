@@ -7,11 +7,11 @@ const cols = [
     title: "Pages",
     links: [
       { label: "Home", to: "/" },
-      { label: "Work", to: "/work" },
-      { label: "Services", to: "/services" },
-      { label: "About", to: "/about" },
-      { label: "Pricing", to: "/pricing" },
-      { label: "Contact", to: "/contact" },
+      { label: "Birmingham web design projects", to: "/work" },
+      { label: "Web design & development", to: "/services" },
+      { label: "About Will Giles, web developer", to: "/about" },
+      { label: "Website design pricing", to: "/pricing" },
+      { label: "Contact a web developer", to: "/contact" },
     ],
   },
   {

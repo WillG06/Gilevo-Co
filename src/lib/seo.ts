@@ -19,7 +19,7 @@ export const getStructuredData = (path: SeoPath) => {
 
   const graph: Record<string, unknown>[] = [
     {
-      "@type": "Organization",
+      "@type": ["Organization", "LocalBusiness", "ProfessionalService"],
       "@id": organizationId,
       ...identity.organization,
       name: identity.name,
@@ -28,7 +28,8 @@ export const getStructuredData = (path: SeoPath) => {
       image: `${siteUrl}/${identity.image}`,
       founder: {
         "@type": "Person",
-        ...identity.organization.founder,
+        name: identity.organization.founder.name,
+        sameAs: identity.organization.founder.sameAs,
         url: `${siteUrl}${identity.organization.founder.path}`,
       },
     },

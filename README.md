@@ -2,7 +2,7 @@
 
 ## Search engine metadata
 
-Page titles, descriptions, canonical paths and crawlable introductory content are maintained in `src/lib/seo-pages.json`. The production build uses this data to generate route-specific HTML pages and `dist/sitemap.xml`; keep the page routes in `vercel.json` aligned with the routes in `src/App.tsx`.
+Page titles, descriptions, canonical paths and crawlable introductory content are maintained in `src/lib/seo-pages.json`. The production build uses this data to generate route-specific HTML pages and `dist/sitemap.xml`; keep the page routes in `vercel.json` aligned with the routes in `src/App.tsx`. The structured data in `src/lib/site-identity.json` identifies the studio as a Birmingham professional service and lists its service areas. Add a real business address only if it is appropriate to publish; do not use a virtual or city-centre address.
 
 After deploying a metadata or route change, submit `https://gilevo.co.uk/sitemap.xml` in Google Search Console and use URL Inspection to request crawling of the updated pages. Search Console and a verified, accurate Google Business Profile are managed outside this repository.
 

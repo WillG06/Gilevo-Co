@@ -27,7 +27,7 @@ const getStructuredData = (route, page) => {
   const websiteId = `${siteUrl}/#website`;
   const graph = [
     {
-      "@type": "Organization",
+      "@type": ["Organization", "LocalBusiness", "ProfessionalService"],
       "@id": organizationId,
       ...identity.organization,
       name: identity.name,
@@ -36,7 +36,8 @@ const getStructuredData = (route, page) => {
       image: `${siteUrl}/${identity.image}`,
       founder: {
         "@type": "Person",
-        ...identity.organization.founder,
+        name: identity.organization.founder.name,
+        sameAs: identity.organization.founder.sameAs,
         url: `${siteUrl}${identity.organization.founder.path}`,
       },
     },
@@ -101,14 +102,14 @@ const createFallbackContent = (route, page) => {
       <ul>
 ${highlights}
       </ul>
-      <p><a href="/contact">Discuss your website project</a></p>
+      <p><a href="/contact">Get a website quote from a Birmingham web developer</a></p>
       <nav aria-label="Main navigation">
         <a href="/">Home</a>
-        <a href="/services">Web design services</a>
-        <a href="/work">Website portfolio</a>
-        <a href="/about">About the studio</a>
-        <a href="/pricing">Website pricing</a>
-        <a href="/contact">Contact</a>
+        <a href="/services">Birmingham web design and development services</a>
+        <a href="/work">Birmingham website design projects</a>
+        <a href="/about">Meet Will Giles, Birmingham web developer</a>
+        <a href="/pricing">Website design pricing</a>
+        <a href="/contact">Contact a Birmingham web developer</a>
       </nav>
     </main>
   </div>`;
