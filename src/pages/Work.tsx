@@ -12,105 +12,89 @@ import coffeeHome from "@/assets/optimized/CoffeeCoHome.webp";
 import coffeeMenu from "@/assets/optimized/CoffeeCoMenu.webp";
 import coffeeVisit from "@/assets/optimized/CoffeeCoVisit.webp";
 import coffeeGallery from "@/assets/optimized/CoffeeCoGallery.webp";
-
-//import cherryHome from "@/assets/CherryRedHome.png";
-//import cherryMenu from "@/assets/CherryRedMenu.png";
-//import cherryEvents from "@/assets/CherryRedEvents.png";
-//import cherryRooms from "@/assets/CherryRedRooms.png";
 import bsHome from "@/assets/optimized/BS_Home.webp";
 import bsTenancies from "@/assets/optimized/BS_Tenancies.webp";
 import bsAbout from "@/assets/optimized/BS_About.webp";
 import bsContact from "@/assets/optimized/BS_Contact.webp";
-
-
-//import foxHome from "@/assets/FoxHome.png";
-//import foxMenu from "@/assets/FoxMenu.png";
-//import foxGallery from "@/assets/FoxGallery.png";
-//import foxContact from "@/assets/FoxContact.png";
-import bcHome from "@/assets/optimized/BC_Home.webp";
-import bcMenu from "@/assets/optimized/BC_Menu.webp";
-import bcVisit from "@/assets/optimized/BC_Visit.webp";
-import bcStory from "@/assets/optimized/BC_Story.webp";
-
-
-// import GCKhome from "@/assets/GCKHome.png";
-// import GCKgallery from "@/assets/GCKGallery.png";
-// import GCKstory from "@/assets/GCKStory.png";
-// import GCKvisit from "@/assets/GCKVisit.png";
-import pvHome from "@/assets/optimized/PV_Home.webp";
-import pvMenu from "@/assets/optimized/PV_Menu.webp";
-import pvEvents from "@/assets/optimized/PV_Events.webp";
-import pvContact from "@/assets/optimized/PV_Contact.webp";
+import paneHome from "@/assets/optimized/pane_Home.webp";
+import paneMenu from "@/assets/optimized/pane_Menu.webp";
+import paneEvents from "@/assets/optimized/pane_Events.webp";
+import paneContact from "@/assets/optimized/pane_Contact.webp";
+import tailorHome from "@/assets/optimized/tailor_Home.webp";
+import tailorServices from "@/assets/optimized/tailor_Services.webp";
+import tailorGallery from "@/assets/optimized/tailor_Gallery.webp";
+import tailorContact from "@/assets/optimized/tailor_Contact.webp";
 
 type Frame = { src: string; label: string };
 type Project = {
   id: string;
   name: string;
   category: string;
-  liveUrl: string;
+  liveUrl?: string;
   desc: string;
   frames: Frame[];
-  domain: string;
+  domain?: string;
+  isDemo?: boolean;
 };
 
 const projects: Project[] = [
   {
-    id: "coffee-bar-collective",
-    name: "The Coffee Bar Collective",
-    category: "Hospitality / Specialty Coffee",
-    liveUrl: "https://willg06.github.io/CoffeeBarCo/",
-    desc: "A bespoke build for a Birmingham specialty coffee house, full-bleed photography, animated menu, and a considered visit experience.",
+    id: "tailor-lady",
+    name: "Tailor Lady",
+    category: "Tailoring / Bespoke",
+    liveUrl: "https://thetailorlady.co.uk",
+    desc: "A fully built, live website designed and developed from scratch for Tailor Lady.",
     frames: [
-      { src: coffeeHome, label: "home" },
-      { src: coffeeMenu, label: "menu" },
-      { src: coffeeGallery, label: "gallery" },
-      { src: coffeeVisit, label: "visit" },
+      { src: tailorHome, label: "home" },
+      { src: tailorServices, label: "services" },
+      { src: tailorGallery, label: "gallery" },
+      { src: tailorContact, label: "contact" },
     ],
-    domain: "thecoffeebarcollective.co.uk",
+    domain: "thetailorlady.co.uk",
   },
   {
-    id: "PaneAndVino",//id: "grand-central-kitchen",
-    name: "Pane & Vino",//name: "Grand Central Kitchen",
+    id: "PaneAndVino",
+    name: "Pane & Vino",
     category: "Hospitality / Restaurant",
     liveUrl: "https://panevino.uk",
     desc: "A refined restaurant site built for storytelling, menus, and table bookings — designed to feel as good as the food.",
     frames: [
-      { src: pvHome, label: "home" },
-      { src: pvMenu, label: "menu" },
-      { src: pvEvents, label: "events" },
-      { src: pvContact, label: "contact" },
+      { src: paneHome, label: "home" },
+      { src: paneMenu, label: "menu" },
+      { src: paneEvents, label: "events" },
+      { src: paneContact, label: "contact" },
     ],
-    domain: "grandcentralkitchen.co.uk",
+    domain: "panevino.uk",
   },
   {
-    id: "BridgeSt.Newark",//id: "cherry-reds",
-    name: "BridgeSt.Newark",//name: "Cherry Reds",
-    category: "Property Invstment",//category: "Hospitality / Bar & Kitchen",
+    id: "BridgeSt.Newark",
+    name: "Bridge Street",
+    category: "Property Investment",
     liveUrl: "https://willg06.github.io/BridgeSt.Newark/",
-    desc: "A credibility-first investment site, restrained design, clear numbers, and built to reassure prospective investors.",//desc: "An editorial bar and kitchen site, bold typography, art-directed photography.",
+    desc: "A credibility-first investment site, restrained design, clear numbers, and built to reassure prospective investors.",
     frames: [
       { src: bsHome, label: "home" },
       { src: bsTenancies, label: "tenancies" },
       { src: bsAbout, label: "about" },
       { src: bsContact, label: "contact" },
     ],
-    domain: "https://willg06.github.io/BridgeSt.Newark/",
+    domain: "willg06.github.io/BridgeSt.Newark",
   },
   {
-    id: "BerryCoffee",//id: "the-sly-old-fox",
-    name: "Berry Coffee",//name: "The Sly Old Fox",
-    category: "Hospitality / Cafe",//category: "Hospitality / Pub",
-    liveUrl: "https://willg06.github.io/BerryCoffee/",
-    desc: "A characterful cafe site, warm, minimal, and built around refined coffee, filled cookies and community.",
+    id: "coffee-shop-demo",
+    name: "Coffee Shop Demo",
+    category: "Website demo / Available from £700*",
+    liveUrl: "https://willg06.github.io/CoffeeBarCo/",
+    desc: "A ready-to-customise coffee shop website demo, available to make your own from £700*.",
     frames: [
-      { src: bcHome, label: "home" },
-      { src: bcMenu, label: "menu" },
-      { src: bcVisit, label: "visit" },
-      { src: bcStory, label: "story" },
+      { src: coffeeHome, label: "home" },
+      { src: coffeeMenu, label: "menu" },
+      { src: coffeeGallery, label: "gallery" },
+      { src: coffeeVisit, label: "visit" },
     ],
-    domain: "willg06.github.io/BerryCoffee/",
+    domain: "willg06.github.io/CoffeeBarCo",
+    isDemo: true,
   },
-  
 ];
 
 /* ─── Lightbox ─────────────────────────────────────────────────────────── */
@@ -267,10 +251,12 @@ const DesktopPreview = ({
             </button>
           ))}
         </div>
-        <div className="ml-auto flex items-center gap-2 bg-background border border-hairline rounded-full px-3 py-1 mono text-[0.6rem] text-faint min-w-0 max-w-[35%] shrink-0">
-          <span className="h-1.5 w-1.5 rounded-full bg-brand-gold shrink-0" />
-          <span className="truncate">{project.domain}/{frame.label}</span>
-        </div>
+        {project.domain && (
+          <div className="ml-auto flex items-center gap-2 bg-background border border-hairline rounded-full px-3 py-1 mono text-[0.6rem] text-faint min-w-0 max-w-[35%] shrink-0">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-gold shrink-0" />
+            <span className="truncate">{project.domain}/{frame.label}</span>
+          </div>
+        )}
         {playing && (
           <button onClick={() => setPlaying(false)} aria-label="Pause"
             className="h-7 w-7 shrink-0 grid place-items-center rounded-full hover:bg-brand-blue-soft text-brand-blue-deep transition-colors">
@@ -349,7 +335,9 @@ const MobilePreviewCard = ({ project }: { project: Project }) => {
             <span className="h-2 w-2 rounded-full bg-brand-gold-soft" />
             <span className="h-2 w-2 rounded-full bg-brand-blue-soft" />
           </div>
-          <span className="mono text-[0.5rem] text-faint truncate ml-1">{project.domain}/home</span>
+          <span className="mono text-[0.5rem] text-faint truncate ml-1">
+            {project.domain ? `${project.domain}/home` : "Website preview"}
+          </span>
           {playing && (
             <button onClick={() => setPlaying(false)} aria-label="Pause"
               className="ml-auto h-5 w-5 grid place-items-center rounded-full text-brand-blue-deep">
@@ -465,13 +453,15 @@ const ProjectGallery = ({ project, index }: { project: Project; index: number })
           <p className="mt-3 max-w-2xl text-ink/65 leading-relaxed">{project.desc}</p>
         </div>
         <div className="flex items-center gap-3 flex-wrap">
-          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-hairline hover:border-brand-blue hover:text-brand-blue-deep transition-colors text-sm">
-            Visit live site <ExternalLink className="h-3.5 w-3.5" />
-          </a>
+          {project.liveUrl && (
+            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-hairline hover:border-brand-blue hover:text-brand-blue-deep transition-colors text-sm">
+              Visit live site <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+          )}
           <Link to="/contact" state={{ plan: project.name }}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-blue-deep text-background hover:bg-brand-gold hover:text-brand-blue-deep transition-colors text-sm">
-            Start a project like this →
+            {project.isDemo ? "Make this demo yours — from £700*" : "Start a project like this →"}
           </Link>
         </div>
       </div>
@@ -568,7 +558,7 @@ const Work = () => (
       eyebrow="Work — Projects"
       titleSerif="Projects"
       titleSans="& Work"
-      intro="Fully built, live websites, each one designed and developed from scratch, unique to the client. Responsive, fast, and crafted with care."
+      intro="A couple of our newest clients' projects. Fully built, live websites, each one designed and developed from scratch to be unique to the client. Responsive, fast, and crafted with care."
       variant="topo"
     />
     <section className="relative pb-20 overflow-hidden">
